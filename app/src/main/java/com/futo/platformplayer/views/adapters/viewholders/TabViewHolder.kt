@@ -35,10 +35,6 @@ class TabViewHolder(viewGroup: ViewGroup) : AnyAdapter.AnyViewHolder<TabViewHold
         _view.isClickable = true;
         _view.setOnClickListener {
             val d = data ?: return@setOnClickListener;
-            if (!d.buttonDefinition.canToggle) {
-                return@setOnClickListener;
-            }
-
             d.enabled = !d.enabled;
             _toggleTab.setValue(d.enabled, true);
             onEnableChanged.emit(d.enabled);
@@ -53,7 +49,6 @@ class TabViewHolder(viewGroup: ViewGroup) : AnyAdapter.AnyViewHolder<TabViewHold
 
     override fun bind(value: TabViewHolderData) {
         _textTabName.text = _view.context.resources.getString(value.buttonDefinition.string);
-        _toggleTab.visibility = if (value.buttonDefinition.canToggle) View.VISIBLE else View.GONE;
         _toggleTab.setValue(value.enabled, false);
         data = value;
     }

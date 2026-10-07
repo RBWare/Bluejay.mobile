@@ -453,7 +453,7 @@ class SourceDetailFragment : MainFragment() {
                 }.apply {
                     this.alpha = 0.5f;
                 },*/
-                if(isEmbedded) BigButton(c, "Reinstall", "Reinstall the original version that was embedded with this version of Grayjay", R.drawable.ic_refresh) {
+                if(isEmbedded) BigButton(c, "Reinstall", "Reinstall the original version that was embedded with this version of Bluejay", R.drawable.ic_refresh) {
                     val embeddedConfig = StatePlugins.instance.getEmbeddedPluginConfigFromID(context, config.id);
 
                     UIDialogs.showDialog(context, R.drawable.ic_warning_yellow, "Are you sure you want to downgrade (${config.version}=>${embeddedConfig?.version})?",

@@ -665,42 +665,19 @@ class StateApp {
                 DownloadService.getOrCreateService(context);
         }
 
+        //Official updates can't be installed over this build, stop background downloads scheduled by earlier versions
+        WorkManager.getInstance(context).cancelUniqueWork(UpdateCheckWorker.UNIQUE_WORK_NAME);
+        scopeOrNull?.launch(Dispatchers.IO) {
+            StateUpdate.instance.removeDownloadedUpdates(context)
+        }
+
         if (Settings.instance.autoUpdate.isAutoUpdateEnabled()) {
-            if (Settings.instance.autoUpdate.shouldBackgroundDownload) {
-                Logger.i(TAG, "MainApp Started: Initialize [AutoUpdate Background]");
-                scopeOrNull?.launch(Dispatchers.IO) {
-                    StateUpdate.instance.seedUiFromDisk(context)
-                }
-                val constraints = Constraints.Builder()
-                    .setRequiredNetworkType(NetworkType.CONNECTED)
-                    .build();
-
-                val periodicRequest = PeriodicWorkRequest.Builder(
-                    UpdateCheckWorker::class.java,
-                    12, TimeUnit.HOURS
-                )
-                    .setConstraints(constraints)
-                    .build();
-
-                val wm = WorkManager.getInstance(context);
-                wm.enqueueUniquePeriodicWork(
-                    UpdateCheckWorker.UNIQUE_WORK_NAME,
-                    ExistingPeriodicWorkPolicy.UPDATE,
-                    periodicRequest
-                );
-
-                val oneTimeRequest = OneTimeWorkRequest.Builder(UpdateCheckWorker::class.java)
-                    .setConstraints(constraints)
-                    .build();
-                wm.enqueue(oneTimeRequest);
-            } else {
-                Logger.i(TAG, "MainApp Started: Initialize [AutoUpdate]");
-                scopeOrNull?.launch(Dispatchers.IO) {
-                    StateUpdate.instance.checkForUpdates(context, false)
-                }
+            Logger.i(TAG, "MainApp Started: Initialize [Update Check]");
+            scopeOrNull?.launch(Dispatchers.IO) {
+                StateUpdate.instance.checkForUpdates(context, false)
             }
         } else {
-            Logger.i(TAG, "AutoUpdate disabled");
+            Logger.i(TAG, "Update check disabled");
         }
 
         Logger.i(TAG, "MainApp Started: Initialize [Noisy]");
@@ -866,7 +843,7 @@ class StateApp {
         }
         /*
         if(!Settings.instance.comments.didAskPolycentricDefault) {
-            UIDialogs.showDialog(context, R.drawable.neopass, "Default Comment Section", "Grayjay supports 2 comment sections, the Platform comments and Polycentric comments. You can easily toggle between them, but which would you like to be selected by default? This choice can be changed in settings.\n\nPolycentric is still under active development.", null, 1,
+            UIDialogs.showDialog(context, R.drawable.neopass, "Default Comment Section", "Bluejay supports 2 comment sections, the Platform comments and Polycentric comments. You can easily toggle between them, but which would you like to be selected by default? This choice can be changed in settings.\n\nPolycentric is still under active development.", null, 1,
                 UIDialogs.Action("Polycentric", {
                     Settings.instance.comments.didAskPolycentricDefault = true;
                     Settings.instance.comments.defaultCommentSection = 0;

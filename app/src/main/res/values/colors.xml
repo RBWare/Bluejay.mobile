@@ -12,6 +12,9 @@
 
     <color name="colorPrimaryDark">#1044C8</color>
     <color name="colorPrimary">#2D63ED</color>
+    <color name="settings_card">#FF161616</color>
+    <color name="settings_divider">#FF262626</color>
+    <color name="settings_description">#FF8A8A8A</color>
 
     <color name="gray_2f">#2F2F2F</color>
     <color name="gray_23">#232323</color>

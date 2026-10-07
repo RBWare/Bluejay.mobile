@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.futo.platformplayer.MenuBottomBarSetting
 import com.futo.platformplayer.R
 import com.futo.platformplayer.Settings
+import com.futo.platformplayer.UIDialogs
 import com.futo.platformplayer.fragment.mainactivity.bottombar.MenuBottomBarFragment
 import com.futo.platformplayer.setNavigationBarColorAndIcons
 import com.futo.platformplayer.states.StateApp
@@ -56,7 +57,7 @@ class ManageTabsActivity : AppCompatActivity() {
         }
 
         val items = ArrayList(Settings.instance.tabs.mapNotNull {
-            val buttonDefinition = MenuBottomBarFragment.buttonDefinitions.find { d -> it.id == d.id } ?: return@mapNotNull null
+            val buttonDefinition = MenuBottomBarFragment.buttonDefinitions.find { d -> it.id == d.id && d.isAvailable() } ?: return@mapNotNull null
             TabViewHolderData(buttonDefinition, it.enabled)
         });
 
@@ -66,6 +67,15 @@ class ManageTabsActivity : AppCompatActivity() {
             };
             it.onEnableChanged.subscribe { enabled ->
                 val d = it.data ?: return@subscribe
+                //Keep enough tabs on so the bar shows at least MIN_BAR_BUTTONS icons (including more)
+                val listedIds = items.map { item -> item.buttonDefinition.id }
+                val othersEnabled = Settings.instance.tabs.count { tab -> tab.enabled && tab.id != d.buttonDefinition.id && listedIds.contains(tab.id) }
+                if (!enabled && othersEnabled < MenuBottomBarFragment.MIN_BAR_BUTTONS - 1) {
+                    d.enabled = true
+                    it.bind(d)
+                    UIDialogs.toast(this, "At least ${MenuBottomBarFragment.MIN_BAR_BUTTONS - 1} tabs must stay on the bar")
+                    return@subscribe
+                }
                 Settings.instance.tabs.find { def -> d.buttonDefinition.id == def.id }?.enabled = enabled
                 Settings.instance.onTabsChanged.emit()
                 Settings.instance.save()
@@ -74,22 +84,18 @@ class ManageTabsActivity : AppCompatActivity() {
 
         callback.onRowMoved.subscribe { fromPosition, toPosition ->
             if (fromPosition < toPosition) {
-                for (i in fromPosition until toPosition) {
+                for (i in fromPosition until toPosition)
                     Collections.swap(items, i, i + 1)
-                    Collections.swap(Settings.instance.tabs, i, i + 1)
-                }
-
-                Settings.instance.onTabsChanged.emit()
-                Settings.instance.save()
             } else {
-                for (i in fromPosition downTo toPosition + 1) {
+                for (i in fromPosition downTo toPosition + 1)
                     Collections.swap(items, i, i - 1)
-                    Collections.swap(Settings.instance.tabs, i, i - 1)
-                }
-
-                Settings.instance.onTabsChanged.emit()
-                Settings.instance.save()
             }
+
+            //Not every saved tab is listed (e.g. buy after paying), so order by id instead of position
+            val order = items.map { it.buttonDefinition.id }
+            Settings.instance.tabs.sortBy { order.indexOf(it.id).let { index -> if (index < 0) Int.MAX_VALUE else index } }
+            Settings.instance.onTabsChanged.emit()
+            Settings.instance.save()
 
             _listTabs.adapter.notifyItemMoved(fromPosition, toPosition);
         };

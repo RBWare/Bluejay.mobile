@@ -2,6 +2,7 @@ package com.futo.platformplayer.views.fields
 
 import android.content.Context
 import android.util.AttributeSet
+import android.view.LayoutInflater
 import android.view.View
 import android.widget.EditText
 import android.widget.FrameLayout
@@ -38,6 +39,11 @@ class FieldForm : LinearLayout {
     private var _fields : List<IField> = arrayListOf();
 
     private var _showAdvancedSettings: Boolean = false;
+
+    //Cards wrapping consecutive top-level fields that aren't groups, purely visual. Buttons and other fields get separate cards.
+    private val _looseCards = arrayListOf<View>();
+    private var _currentLooseCard: LinearLayout? = null;
+    private var _currentLooseCardIsButtons = false;
 
     constructor(context : Context, attrs : AttributeSet? = null) : super(context, attrs) {
         inflate(context, R.layout.field_form, this);
@@ -83,6 +89,46 @@ class FieldForm : LinearLayout {
         }
         if(group != null) {
             group.visibility = if (groupVisible) View.VISIBLE else View.GONE;
+        } else {
+            updateLooseCardVisibility();
+        }
+    }
+
+    private fun clearFieldViews() {
+        _fieldsContainer.removeAllViews();
+        _looseCards.clear();
+        _currentLooseCard = null;
+    }
+
+    private fun addFieldView(view: View) {
+        if (view is GroupField) {
+            _currentLooseCard = null;
+            _fieldsContainer.addView(view);
+            return;
+        }
+
+        //Show loose fields in a card like groups, consecutive ones of the same kind share a card
+        val isButton = view is ButtonField;
+        if (isButton != _currentLooseCardIsButtons)
+            _currentLooseCard = null;
+        _currentLooseCardIsButtons = isButton;
+        if (view is ButtonField)
+            view.setInCard();
+
+        val container = _currentLooseCard ?: run {
+            val card = LayoutInflater.from(context).inflate(R.layout.field_card, _fieldsContainer, false);
+            _fieldsContainer.addView(card);
+            _looseCards.add(card);
+            card.findViewById<LinearLayout>(R.id.field_card_container).also { _currentLooseCard = it };
+        };
+        container.addView(view);
+    }
+
+    private fun updateLooseCardVisibility() {
+        for (card in _looseCards) {
+            val container = card.findViewById<LinearLayout>(R.id.field_card_container);
+            val anyVisible = (0 until container.childCount).any { container.getChildAt(it).visibility == View.VISIBLE };
+            card.visibility = if (anyVisible) View.VISIBLE else View.GONE;
         }
     }
 
@@ -100,7 +146,7 @@ class FieldForm : LinearLayout {
     }
 
     fun fromObject(scope: CoroutineScope, obj : Any, onLoaded: (()->Unit)? = null) {
-        _fieldsContainer.removeAllViews();
+        clearFieldViews();
 
         scope.launch(Dispatchers.Default) {
             val newFields = getFieldsFromObject(context, obj);
@@ -115,7 +161,7 @@ class FieldForm : LinearLayout {
                         _showAdvancedSettings = field.value as Boolean;
                     }
 
-                    _fieldsContainer.addView(field as View);
+                    addFieldView(field as View);
                     field.onChanged.subscribe { a1, a2, _ ->
                         if(field is ToggleField && field.descriptor?.id == "advancedSettings") {
                             setShowAdvancedSettings((a2 as Boolean));
@@ -132,14 +178,14 @@ class FieldForm : LinearLayout {
         }
     }
     fun fromObject(obj : Any) {
-        _fieldsContainer.removeAllViews();
+        clearFieldViews();
         val newFields = getFieldsFromObject(context, obj);
         for(field in newFields) {
             if(field !is View) {
                 throw java.lang.IllegalStateException("Only views can be IFields");
             }
 
-            _fieldsContainer.addView(field as View);
+            addFieldView(field as View);
             field.onChanged.subscribe { a1, a2, _ ->
                 onChanged.emit(a1, a2);
             };
@@ -147,7 +193,7 @@ class FieldForm : LinearLayout {
         _fields = newFields;
     }
     fun fromPluginSettings(settings: List<SourcePluginConfig.Setting>, values: HashMap<String, String?>, groupTitle: String? = null, groupDescription: String? = null) {
-        _fieldsContainer.removeAllViews();
+        clearFieldViews();
         val newFields = getFieldsFromPluginSettings(context, settings, values, {
             setShowAdvancedSettings(it, true);
         });
@@ -163,7 +209,7 @@ class FieldForm : LinearLayout {
                 }
 
                 finalizePluginSettingField(field.first, v, newFields);
-                _fieldsContainer.addView(v);
+                addFieldView(v);
             }
             _fields = newFields.map { it.second };
             updateSettingsVisibility(null, true);
@@ -173,7 +219,7 @@ class FieldForm : LinearLayout {
             }
             val group = GroupField(context, groupTitle, groupDescription)
                 .withFields(newFields.map { it.second });
-            _fieldsContainer.addView(group as View);
+            addFieldView(group as View);
             _fields = newFields.map { it.second };
             updateSettingsVisibility(null, true);
         }

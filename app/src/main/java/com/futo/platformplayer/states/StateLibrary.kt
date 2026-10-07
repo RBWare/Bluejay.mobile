@@ -77,7 +77,7 @@ class StateLibrary {
         val mainActivity = StateApp.instance.contextOrNull as MainActivity? ?: return false;
 
         StateApp.instance.requestDirectoryAccess(mainActivity, "Select Directory",
-                "Select a directory you would like to make accessible to Grayjay", null, {
+                "Select a directory you would like to make accessible to Bluejay", null, {
                     if(it != null) {
                         mainActivity.contentResolver.takePersistableUriPermission(it, Intent.FLAG_GRANT_WRITE_URI_PERMISSION.or(Intent.FLAG_GRANT_READ_URI_PERMISSION));
                         try {

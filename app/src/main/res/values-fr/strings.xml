@@ -209,7 +209,7 @@
     <string name="under">SOUS</string>
     <string name="construction">CONSTRUCTION</string>
     <string name="disable">Désactiver</string>
-    <string name="the_following_content_cannot_be_opened_in_grayjay_due_to_a_missing_plugin">Le contenu suivant ne peut pas être ouvert dans Grayjay en raison d\'un plugin manquant.</string>
+    <string name="the_following_content_cannot_be_opened_in_grayjay_due_to_a_missing_plugin">Le contenu suivant ne peut pas être ouvert dans Bluejay en raison d\'un plugin manquant.</string>
     <string name="unknown">Inconnu</string>
     <string name="tap_to_open_in_browser">Appuyez pour ouvrir dans le navigateur</string>
     <string name="missing_plugin">Plugin manquant</string>
@@ -223,7 +223,7 @@
     <string name="payment_using">Paiement en utilisant</string>
     <string name="country">Pays</string>
     <string name="postal_code">Code postal</string>
-    <string name="grayjay">Grayjay</string>
+    <string name="grayjay">Bluejay</string>
     <string name="sales_tax">Taxe de vente (</string>
     <string name="total">Total</string>
     <string name="pay">Payer</string>
@@ -286,7 +286,7 @@
     <string name="configure_the_auto_updater">Configurer le programme de mise à jour automatique</string>
     <string name="configure_when_updates_should_be_downloaded">Configurer le moment où les mises à jour doivent être téléchargées</string>
     <string name="configure_when_videos_should_be_downloaded">Configurer le moment où les vidéos doivent être téléchargées</string>
-    <string name="creates_a_zip_file_with_your_data_which_can_be_imported_by_opening_it_with_grayjay">Crée un fichier zip avec vos données qui peuvent être importées en l\'ouvrant avec Grayjay</string>
+    <string name="creates_a_zip_file_with_your_data_which_can_be_imported_by_opening_it_with_grayjay">Crée un fichier zip avec vos données qui peuvent être importées en l\'ouvrant avec Bluejay</string>
     <string name="default_audio_quality">Qualité audio par défaut</string>
     <string name="default_playback_speed">Vitesse de lecture par défaut</string>
     <string name="default_video_quality">Qualité vidéo par défaut</string>
@@ -478,7 +478,7 @@
     <string name="share_as_text">Partager en tant que texte</string>
     <string name="share_as_a_list_of_video_urls">Partager sous forme de liste d\'URL de vidéos</string>
     <string name="share_as_import">Partager en tant qu\'importation</string>
-    <string name="share_as_a_import_file_for_grayjay">Partager en tant que fichier d\'importation pour Grayjay</string>
+    <string name="share_as_a_import_file_for_grayjay">Partager en tant que fichier d\'importation pour Bluejay</string>
     <string name="failed_to_load_playlist">Échec du chargement de la liste de lecture</string>
     <string name="please_wait_for_playlist_to_finish_loading">Veuillez attendre que la liste de lecture ait fini de se charger</string>
     <string name="playlist_copied_as_local_playlist">Liste de lecture copiée en tant que liste de lecture locale</string>

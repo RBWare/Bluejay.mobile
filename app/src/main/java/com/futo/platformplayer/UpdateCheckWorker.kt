@@ -29,24 +29,15 @@ class UpdateCheckWorker(appContext: Context, workerParams: WorkerParameters) : C
                     return@withContext Result.retry()
                 }
 
-                val currentVersion = BuildConfig.VERSION_CODE
+                val currentVersion = BuildConfig.GRAYJAY_BASE_VERSION
                 Logger.i(TAG, "Worker check: current=$currentVersion, latest=$latestVersion")
 
                 if (latestVersion <= currentVersion) {
                     return@withContext Result.success()
                 }
 
+                //Official updates can't be installed over this build, only inform
                 StateUpdate.Companion.instance.setUiAvailable(latestVersion)
-
-                try {
-                    val serviceIntent = Intent(applicationContext, UpdateDownloadService::class.java).apply {
-                        putExtra(UpdateDownloadService.EXTRA_VERSION, latestVersion)
-                    }
-                    ContextCompat.startForegroundService(applicationContext, serviceIntent)
-                } catch (t: Throwable) {
-                    Logger.w(TAG, "Failed to start UpdateDownloadService", t)
-                    StateUpdate.Companion.instance.setUiFailed(latestVersion, t.message)
-                }
 
                 Result.success()
             } catch (t: Throwable) {

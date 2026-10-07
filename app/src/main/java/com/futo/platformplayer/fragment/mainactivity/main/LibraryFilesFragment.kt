@@ -186,7 +186,7 @@ class LibraryFilesFragment : MainFragment() {
 
         override fun getEmptyPagerView(): View? {
             return NoResultsView(context, "No Directories Added",
-                "To see files in Grayjay you have to add directories to view",
+                "To see files in Bluejay you have to add directories to view",
                 R.drawable.ic_library, listOf(
                     BigButton(context, "Add Directory", "Select a directory to add", R.drawable.ic_add, {
                         StateLibrary.instance.addFileDirectory({

@@ -88,6 +88,16 @@
         <item name="shapeAppearanceLargeComponent">@style/ShapeAppearance.Material3.LargeComponent</item>
     </style>
 
+    <!-- Applied to the Toggle widget only, the app theme is MaterialComponents and lacks the Material3 attributes MaterialSwitch needs -->
+    <style name="ThemeOverlay.FutoVideo.Switch" parent="Theme.Material3.Dark.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorPrimaryContainer">#FFDCE1FF</item>
+        <item name="colorOnPrimaryContainer">@color/colorPrimary</item>
+        <item name="colorSurfaceContainerHighest">#FF2A2A2A</item>
+        <item name="colorOutline">#FF8A8A8A</item>
+    </style>
+
     <style name="Theme.FutoVideo.NoActionBar" parent="Theme.FutoVideo">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>

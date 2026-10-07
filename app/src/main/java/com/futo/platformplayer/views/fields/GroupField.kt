@@ -1,12 +1,14 @@
 package com.futo.platformplayer.views.fields
 
 import android.content.Context
+import android.graphics.Color
 import android.util.AttributeSet
 import android.view.View
 import android.widget.LinearLayout
 import android.widget.TextView
 import com.futo.platformplayer.R
 import com.futo.platformplayer.constructs.Event3
+import com.google.android.material.card.MaterialCardView
 import java.lang.reflect.Field
 
 class GroupField : LinearLayout, IField {
@@ -32,6 +34,7 @@ class GroupField : LinearLayout, IField {
     private val _title : TextView;
     private val _subtitle : TextView;
     private val _container : LinearLayout;
+    private val _card : MaterialCardView;
 
     override var reference: Any? = null;
     override var isAdvanced: Boolean = false;
@@ -45,6 +48,7 @@ class GroupField : LinearLayout, IField {
         _title = findViewById(R.id.field_group_title);
         _subtitle = findViewById(R.id.field_group_subtitle);
         _container = findViewById(R.id.field_group_container);
+        _card = findViewById(R.id.field_group_card);
 
         _title.visibility = GONE;
     }
@@ -54,6 +58,7 @@ class GroupField : LinearLayout, IField {
         _title = findViewById(R.id.field_group_title);
         _subtitle = findViewById(R.id.field_group_subtitle);
         _container = findViewById(R.id.field_group_container);
+        _card = findViewById(R.id.field_group_card);
 
         _title.text = title;
         _subtitle.text = description ?: "";
@@ -69,6 +74,23 @@ class GroupField : LinearLayout, IField {
         } else {
             _subtitle.visibility = GONE;
         }
+    }
+
+    private fun addFieldView(field: IField) {
+        when (field) {
+            is GroupField -> field.setNested();
+            is ButtonField -> field.setInCard();
+        }
+        _container.addView(field as View);
+    }
+
+    /**
+     * A group inside another group's card shouldn't draw a second card.
+     */
+    fun setNested() {
+        _card.setCardBackgroundColor(Color.TRANSPARENT);
+        _card.radius = 0f;
+        _container.setPadding(0, 0, 0, 0);
     }
 
     fun findField(id: String) : IField? {
@@ -93,7 +115,7 @@ class GroupField : LinearLayout, IField {
                 throw java.lang.IllegalStateException("Only views can be IFields");
 
             field.onChanged.subscribe(onChanged::emit);
-            _container.addView(field as View);
+            addFieldView(field);
             newFields.add(field);
         }
         _fields = newFields;
@@ -124,7 +146,7 @@ class GroupField : LinearLayout, IField {
                     throw java.lang.IllegalStateException("Only views can be IFields");
 
                 f.onChanged.subscribe(onChanged::emit);
-                _container.addView(f as View);
+                addFieldView(f);
                 newFields.add(f);
             }
         }

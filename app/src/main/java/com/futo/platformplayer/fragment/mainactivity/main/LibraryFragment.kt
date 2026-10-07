@@ -282,7 +282,7 @@ class LibraryFragment : MainFragment() {
             else {
                 sectionArtists.setEmpty(
                     "No Music Permissions",
-                    "You have not granted music access permissions to Grayjay",
+                    "You have not granted music access permissions to Bluejay",
                     -1
                 );
             }
@@ -301,7 +301,7 @@ class LibraryFragment : MainFragment() {
             else {
                 sectionAlbums.setEmpty(
                     "No Music Permissions",
-                    "You have not granted music access permissions to Grayjay",
+                    "You have not granted music access permissions to Bluejay",
                     -1
                 );
             }
@@ -320,7 +320,7 @@ class LibraryFragment : MainFragment() {
             else {
                 sectionVideos.setEmpty(
                     "No Video Permissions",
-                    "You have not granted video access permissions to Grayjay",
+                    "You have not granted video access permissions to Bluejay",
                     -1
                 );
             }

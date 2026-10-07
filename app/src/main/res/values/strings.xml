@@ -10,7 +10,7 @@
     <string name="add_to_history">Add to history</string>
     <string name="general">General</string>
     <string name="channel">Channel</string>
-    <string name="home">Home</string>
+    <string name="home">Today</string>
     <string name="sync_history">Sync Remote History</string>
     <string name="sync_history_desc">Synchronize account history from this platform on startup</string>
     <string name="progress_bar">Progress Bar</string>
@@ -23,6 +23,9 @@
     <string name="more">More</string>
     <string name="playlists">Playlists</string>
     <string name="subscriptions">Subscriptions</string>
+    <string name="for_you">For You</string>
+    <string name="show_grayjay_updates">Show Grayjay updates</string>
+    <string name="show_grayjay_updates_description">Let you know when an official Grayjay release newer than the one Bluejay is based on comes out, so it can be merged in.</string>
     <string name="loading">Loading</string>
     <string name="retry">Retry</string>
     <string name="install_failed_device_installer_broken">Failed to start system installer. Your device’s ROM is not compatible with automatic updates.</string>
@@ -267,7 +270,7 @@
     <string name="under">UNDER</string>
     <string name="construction">CONSTRUCTION</string>
     <string name="disable">Disable</string>
-    <string name="the_following_content_cannot_be_opened_in_grayjay_due_to_a_missing_plugin">The following content cannot be opened in Grayjay due to a missing plugin.</string>
+    <string name="the_following_content_cannot_be_opened_in_grayjay_due_to_a_missing_plugin">The following content cannot be opened in Bluejay due to a missing plugin.</string>
     <string name="locked_content_description">This content is locked</string>
     <string name="unknown">Unknown</string>
     <string name="tap_to_open_in_browser">Tap to open in browser</string>
@@ -282,7 +285,7 @@
     <string name="payment_using">Payment using</string>
     <string name="country">Country</string>
     <string name="postal_code">Postal Code</string>
-    <string name="grayjay">Grayjay</string>
+    <string name="grayjay">Bluejay</string>
     <string name="sales_tax">Sales Tax (</string>
     <string name="total">Total</string>
     <string name="pay">Pay</string>
@@ -338,9 +341,9 @@
     <string name="change_external_downloads_directory">Change external Downloads directory</string>
     <string name="clear_external_downloads_directory">Clear external Downloads directory</string>
     <string name="change_external_general_directory">Change external General directory</string>
-    <string name="change_tabs_visible_on_the_home_screen">Change tabs visible on the home screen</string>
+    <string name="change_tabs_visible_on_the_home_screen">Choose which tabs appear on the bottom bar, the rest move to More</string>
     <string name="link_handling">Link Handling</string>
-    <string name="allow_grayjay_to_handle_links">Allow Grayjay to handle links</string>
+    <string name="allow_grayjay_to_handle_links">Allow Bluejay to handle links</string>
     <string name="change_the_external_directory_for_general_files">Change the external directory for general files</string>
     <string name="clear_the_external_storage_for_download_files">Clear the external storage for download files</string>
     <string name="change_the_external_storage_for_download_files">Change the external storage for download files</string>
@@ -361,13 +364,13 @@
     <string name="configure_casting">Configure casting</string>
     <string name="configure_daily_backup_in_case_of_catastrophic_failure">Configure daily backup in case of catastrophic failure</string>
     <string name="configure_downloading_of_videos">Configure downloading of videos</string>
-    <string name="configure_how_your_home_tab_works_and_feels">Configure how your Home tab works and feels</string>
+    <string name="configure_how_your_home_tab_works_and_feels">Configure how your Today tab works and feels</string>
     <string name="configure_how_your_subscriptions_works_and_feels">Configure how your Subscriptions works and feels</string>
     <string name="configure_if_background_download_should_be_used">Configure if background download should be used</string>
     <string name="configure_the_auto_updater">Configure the auto updater</string>
     <string name="configure_when_updates_should_be_downloaded">Configure when updates should be downloaded</string>
     <string name="configure_when_videos_should_be_downloaded">Configure when videos should be downloaded, if they should only be downloaded on unmetered networks (wifi/ethernet)</string>
-    <string name="creates_a_zip_file_with_your_data_which_can_be_imported_by_opening_it_with_grayjay">Creates a zip file with your data which can be imported by opening it with Grayjay</string>
+    <string name="creates_a_zip_file_with_your_data_which_can_be_imported_by_opening_it_with_grayjay">Creates a zip file with your data which can be imported by opening it with Bluejay</string>
     <string name="default_audio_quality">Default Audio Quality</string>
     <string name="default_playback_speed">Default Playback Speed</string>
     <string name="default_video_quality">Default Video Quality</string>
@@ -457,7 +460,7 @@
     <string name="shorts_pregenerate_description">Generates short sources (when applicable) one video ahead</string>
     <string name="shorts_fit_video">Fit Shorts Video</string>
     <string name="shorts_fit_video_description">Will scale the video to fit the view, instead of filling the view properly.</string>
-    <string name="shorts_fit_video_warning">This setting will require you to reboot Grayjay.</string>
+    <string name="shorts_fit_video_warning">This setting will require you to reboot Bluejay.</string>
     <string name="seek_offset">Seek duration</string>
     <string name="min_playback_speed">Minimum Playback Speed</string>
     <string name="min_playback_speed_description">Minimum Available Speed</string>
@@ -484,7 +487,7 @@
     <string name="logging">Logging</string>
     <string name="license_status">License status</string>
     <string name="view_license_status">View license status</string>
-    <string name="sync_grayjay">Sync Grayjay</string>
+    <string name="sync_grayjay">Sync Bluejay</string>
     <string name="sync_grayjay_description">Sync your data across multiple devices</string>
     <string name="manage_polycentric_identity">Manage Polycentric identity</string>
     <string name="manage_your_polycentric_identity">Manage your Polycentric identity</string>
@@ -591,7 +594,7 @@
     <string name="deletes_all_unresolved_source_files">Deletes all unresolved source files</string>
     <string name="developer_mode">Developer Mode</string>
     <string name="allow_all_certificates">Allow All Certificates</string>
-    <string name="allow_all_certificates_warning">This risks exposing all your Grayjay network traffic.</string>
+    <string name="allow_all_certificates_warning">This risks exposing all your Bluejay network traffic.</string>
     <string name="development_server">Development Server</string>
     <string name="experimental">Experimental</string>
     <string name="cache">Cache</string>
@@ -634,7 +637,7 @@
     <string name="ratelimit_sub_setting">Rate-limit Subscriptions</string>
     <string name="ratelimit_sub_setting_description">Limit the amount of subscription requests made</string>
     <string name="enable_where_this_plugins_content_are_visible">Enable where this plugin\'s content are visible</string>
-    <string name="show_content_in_home_tab">Show content in home tab</string>
+    <string name="show_content_in_home_tab">Show content in Today tab</string>
     <string name="show_content_in_search_results">Show content in search results</string>
     <string name="show_content_in_shorts_tab">Show content in shorts tab</string>
     <string name="no_valid_url_provided">No valid URL provided..</string>
@@ -719,7 +722,7 @@
     <string name="failed_to_get_home_plugin">Failed to get Home\nPlugin</string>
     <string name="failed_to_get_home">Failed to get Home</string>
     <string name="no_home_available">No home available</string>
-    <string name="no_home_page_is_available_please_check_if_you_are_connected_to_the_internet_and_refresh">No home page is available, please check if you are connected to the internet and refresh.</string>
+    <string name="no_home_page_is_available_please_check_if_you_are_connected_to_the_internet_and_refresh">No Today feed is available, please check if you are connected to the internet and refresh.</string>
     <string name="import_playlists">Import Playlists</string>
     <string name="playlists_imported">playlists imported.</string>
     <string name="index_out_of_size_selected">{index} out of {size} selected</string>
@@ -729,7 +732,7 @@
     <string name="share_as_text">Share as Text</string>
     <string name="share_as_a_list_of_video_urls">Share as a list of video urls</string>
     <string name="share_as_import">Share as Import</string>
-    <string name="share_as_a_import_file_for_grayjay">Share as a import file for Grayjay</string>
+    <string name="share_as_a_import_file_for_grayjay">Share as a import file for Bluejay</string>
     <string name="failed_to_load_playlist">Failed to load playlist</string>
     <string name="please_wait_for_playlist_to_finish_loading">Please wait for playlist to finish loading</string>
     <string name="playlist_copied_as_local_playlist">Playlist copied as local playlist</string>
@@ -877,11 +880,11 @@
     <string name="new_playlist">New playlist</string>
     <string name="add_to_new_playlist">Add to new playlist</string>
     <string name="url_handling">URL Handling</string>
-    <string name="allow_grayjay_to_handle_specific_urls">Allow Grayjay to handle specific URLs?</string>
-    <string name="allow_grayjay_to_handle_specific_urls_please_set_it_as_default_in_the_app_settings">When you click \'Yes\', the Grayjay app settings will open.\n\nThere, navigate to:\n1. "Open by default" or "Set as default" section.\nYou might find this option directly or under \'Advanced\' settings, depending on your device.\n\n2. Choose \'Open supported links\' for Grayjay.\n\n(some devices have this listed under \'Default Apps\' in the main settings followed by selecting Grayjay for relevant categories)</string>
+    <string name="allow_grayjay_to_handle_specific_urls">Allow Bluejay to handle specific URLs?</string>
+    <string name="allow_grayjay_to_handle_specific_urls_please_set_it_as_default_in_the_app_settings">When you click \'Yes\', the Bluejay app settings will open.\n\nThere, navigate to:\n1. "Open by default" or "Set as default" section.\nYou might find this option directly or under \'Advanced\' settings, depending on your device.\n\n2. Choose \'Open supported links\' for Bluejay.\n\n(some devices have this listed under \'Default Apps\' in the main settings followed by selecting Bluejay for relevant categories)</string>
     <string name="failed_to_show_settings">Failed to show settings</string>
     <string name="play_store_version_does_not_support_default_url_handling">Play store version does not support default URL handling.</string>
-    <string name="these_are_all_commentcount_comments_you_have_made_in_grayjay">These are all {commentCount} comments you have made in Grayjay.</string>
+    <string name="these_are_all_commentcount_comments_you_have_made_in_grayjay">These are all {commentCount} comments you have made in Bluejay.</string>
     <string name="tutorial">Tutorial</string>
     <string name="go_back_to_casting_add_dialog">Go back to casting add dialog</string>
     <string name="view_a_video_about_how_to_cast">View a video about how to cast</string>

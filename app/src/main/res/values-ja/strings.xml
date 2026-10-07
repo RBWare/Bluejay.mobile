@@ -173,7 +173,7 @@
     <string name="under">工事</string>
     <string name="construction">中</string>
     <string name="disable">無効にする</string>
-    <string name="the_following_content_cannot_be_opened_in_grayjay_due_to_a_missing_plugin">次のコンテンツは、不足しているプラグインのため、Grayjayで開けません。</string>
+    <string name="the_following_content_cannot_be_opened_in_grayjay_due_to_a_missing_plugin">次のコンテンツは、不足しているプラグインのため、Bluejayで開けません。</string>
     <string name="unknown">不明</string>
     <string name="tap_to_open_in_browser">ブラウザで開くためにタップ</string>
     <string name="missing_plugin">不足しているプラグイン</string>
@@ -187,7 +187,7 @@
     <string name="payment_using">支払い方法</string>
     <string name="country">国</string>
     <string name="postal_code">郵便番号</string>
-    <string name="grayjay">Grayjay</string>
+    <string name="grayjay">Bluejay</string>
     <string name="sales_tax">消費税 (</string>
     <string name="total">合計</string>
     <string name="pay">支払う</string>
@@ -250,7 +250,7 @@
     <string name="configure_the_auto_updater">自動更新を設定</string>
     <string name="configure_when_updates_should_be_downloaded">更新がダウンロードされるタイミングを設定</string>
     <string name="configure_when_videos_should_be_downloaded">動画がダウンロードされるタイミングを設定</string>
-    <string name="creates_a_zip_file_with_your_data_which_can_be_imported_by_opening_it_with_grayjay">Grayjayで開いてインポートできるデータのZIPファイルを作成します</string>
+    <string name="creates_a_zip_file_with_your_data_which_can_be_imported_by_opening_it_with_grayjay">Bluejayで開いてインポートできるデータのZIPファイルを作成します</string>
     <string name="default_audio_quality">デフォルトのオーディオ品質</string>
     <string name="default_playback_speed">デフォルトの再生速度</string>
     <string name="default_video_quality">デフォルトの動画品質</string>
@@ -440,7 +440,7 @@
     <string name="share_as_text">テキストとして共有</string>
     <string name="share_as_a_list_of_video_urls">ビデオのURLのリストとして共有</string>
     <string name="share_as_import">インポートとして共有</string>
-    <string name="share_as_a_import_file_for_grayjay">Grayjayのインポートファイルとして共有</string>
+    <string name="share_as_a_import_file_for_grayjay">Bluejayのインポートファイルとして共有</string>
     <string name="failed_to_load_playlist">プレイリストの読み込みに失敗しました</string>
     <string name="please_wait_for_playlist_to_finish_loading">プレイリストの読み込みが完了するまでお待ちください</string>
     <string name="playlist_copied_as_local_playlist">プレイリストをローカルプレイリストとしてコピーしました</string>

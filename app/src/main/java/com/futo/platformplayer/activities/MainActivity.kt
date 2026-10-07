@@ -81,6 +81,7 @@ import com.futo.platformplayer.fragment.mainactivity.main.SourcesFragment
 import com.futo.platformplayer.fragment.mainactivity.main.SubscriptionGroupFragment
 import com.futo.platformplayer.fragment.mainactivity.main.SubscriptionGroupListFragment
 import com.futo.platformplayer.fragment.mainactivity.main.SubscriptionsFeedFragment
+import com.futo.platformplayer.fragment.mainactivity.main.ForYouFragment
 import com.futo.platformplayer.fragment.mainactivity.main.SuggestionsFragment
 import com.futo.platformplayer.fragment.mainactivity.main.TutorialFragment
 import com.futo.platformplayer.fragment.mainactivity.main.VideoDetailFragment
@@ -178,6 +179,7 @@ class MainActivity : AppCompatActivity, IWithResultLauncher {
     lateinit var _fragMainSubscriptions: CreatorsFragment;
     lateinit var _fragMainComments: CommentsFragment;
     lateinit var _fragMainSubscriptionsFeed: SubscriptionsFeedFragment;
+    lateinit var _fragMainForYou: ForYouFragment;
     lateinit var _fragMainChannel: ChannelFragment;
     lateinit var _fragMainSources: SourcesFragment;
     lateinit var _fragMainTutorial: TutorialFragment;
@@ -367,6 +369,7 @@ class MainActivity : AppCompatActivity, IWithResultLauncher {
         _fragMainComments = CommentsFragment.newInstance();
         _fragMainChannel = ChannelFragment.newInstance();
         _fragMainSubscriptionsFeed = SubscriptionsFeedFragment.newInstance();
+        _fragMainForYou = ForYouFragment.newInstance();
         _fragMainSources = SourcesFragment.newInstance();
         _fragMainPlaylists = PlaylistsFragment.newInstance();
         _fragMainPlaylist = PlaylistFragment.newInstance();
@@ -407,6 +410,7 @@ class MainActivity : AppCompatActivity, IWithResultLauncher {
             _fragMainHome.setPreviewsEnabled(false);
             _fragMainVideoSearchResults.setPreviewsEnabled(false);
             _fragMainSubscriptionsFeed.setPreviewsEnabled(false);
+            _fragMainForYou.setPreviewsEnabled(false);
         };
 
 
@@ -431,6 +435,7 @@ class MainActivity : AppCompatActivity, IWithResultLauncher {
             _fragMainHome.setPreviewsEnabled(true);
             _fragMainVideoSearchResults.setPreviewsEnabled(true);
             _fragMainSubscriptionsFeed.setPreviewsEnabled(true);
+            _fragMainForYou.setPreviewsEnabled(true);
             _fragContainerVideoDetail.visibility = View.INVISIBLE;
             updateSegmentPaddings();
             updatePrivateModeVisibility()
@@ -518,6 +523,7 @@ class MainActivity : AppCompatActivity, IWithResultLauncher {
         _fragMainChannel.topBar = _fragTopBarNavigation;
         _fragMainTutorial.topBar = _fragTopBarNavigation;
         _fragMainSubscriptionsFeed.topBar = _fragTopBarGeneral;
+        _fragMainForYou.topBar = _fragTopBarGeneral;
         _fragMainSources.topBar = _fragTopBarAdd;
         _fragMainPlaylists.topBar = _fragTopBarGeneral;
         _fragMainPlaylist.topBar = _fragTopBarNavigation;
@@ -615,10 +621,6 @@ class MainActivity : AppCompatActivity, IWithResultLauncher {
             sharedPreferences.edit().putBoolean("IsFirstBoot", false).apply()
         }
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU && Settings.instance.autoUpdate.isAutoUpdateEnabled() && Settings.instance.autoUpdate.shouldBackgroundDownload) {
-            requestNotificationPermissions("You have enabled background updating.\n\nGrayjay uses notifications to inform you when a new app update is available.");
-        }
-
         val submissionStatus = FragmentedStorage.get<StringStorage>("subscriptionSubmissionStatus")
 
         val numSubscriptions = StateSubscriptions.instance.getSubscriptionCount()
@@ -690,7 +692,7 @@ class MainActivity : AppCompatActivity, IWithResultLauncher {
         if(grantResults.size == 1 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
             StateApp.instance.mainAppStartedWithExternalFiles(this);
         else {
-            UIDialogs.showDialog(this, R.drawable.ic_help, "File Permissions", "Grayjay requires file permissions for exporting downloads and automatic backups", null, 0,
+            UIDialogs.showDialog(this, R.drawable.ic_help, "File Permissions", "Bluejay requires file permissions for exporting downloads and automatic backups", null, 0,
                 UIDialogs.Action("Cancel", {}),
                 UIDialogs.Action("Configure", {
                     startActivity(Intent().apply {
@@ -1216,7 +1218,7 @@ class MainActivity : AppCompatActivity, IWithResultLauncher {
     fun getDefaultTab(): MenuBottomBarFragment.ButtonDefinition {
         return Settings.instance.tabs
             .filter { it.enabled }
-            .firstNotNullOfOrNull { setting -> MenuBottomBarFragment.buttonDefinitions.firstOrNull { it.id == setting.id } }
+            .firstNotNullOfOrNull { setting -> MenuBottomBarFragment.buttonDefinitions.firstOrNull { it.id == setting.id && it.id != 98 } }
             ?: MenuBottomBarFragment.buttonDefinitions.first();
     }
 
@@ -1370,6 +1372,7 @@ class MainActivity : AppCompatActivity, IWithResultLauncher {
             CreatorsFragment::class -> _fragMainSubscriptions as T;
             CommentsFragment::class -> _fragMainComments as T;
             SubscriptionsFeedFragment::class -> _fragMainSubscriptionsFeed as T;
+            ForYouFragment::class -> _fragMainForYou as T;
             PlaylistSearchResultsFragment::class -> _fragMainPlaylistSearchResults as T;
             ChannelFragment::class -> _fragMainChannel as T;
             SourcesFragment::class -> _fragMainSources as T;

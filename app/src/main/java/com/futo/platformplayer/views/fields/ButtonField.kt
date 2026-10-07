@@ -48,6 +48,14 @@ class ButtonField : BigButton, IField {
 
     override val onChanged = Event3<IField, Any, Any>();
 
+    /**
+     * Inside a settings card the button is a plain row, the card already provides the background.
+     */
+    fun setInCard() {
+        withBackground(android.R.color.transparent);
+        updateLayoutParams<LayoutParams> { setMargins(0, 0, 0, 0) };
+    }
+
     constructor(context : Context, attrs : AttributeSet? = null) : super(context, attrs){
         //inflate(context, R.layout.field_button, this);
         //_title = findViewById(R.id.field_title);

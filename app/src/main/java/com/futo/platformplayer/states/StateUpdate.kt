@@ -4,6 +4,7 @@ import android.content.Context
 import android.os.Build
 import com.futo.platformplayer.BuildConfig
 import com.futo.platformplayer.UIDialogs
+import com.futo.platformplayer.UpdateNotificationManager
 import com.futo.platformplayer.api.http.ManagedHttpClient
 import com.futo.platformplayer.constructs.Event0
 import com.futo.platformplayer.copyToOutputStream
@@ -14,6 +15,7 @@ import kotlinx.coroutines.withContext
 import java.io.File
 import java.io.InputStream
 import java.io.OutputStream
+import java.time.OffsetDateTime
 
 enum class UpdateUiState { NONE, AVAILABLE, DOWNLOADING, READY, FAILED }
 
@@ -112,22 +114,21 @@ class StateUpdate {
             val latestVersion = downloadVersionCode(client);
 
             if (latestVersion != null) {
-                val currentVersion = BuildConfig.VERSION_CODE;
+                //Compare against the official release this build is based on, VERSION_CODE isn't comparable for Bluejay builds
+                val currentVersion = BuildConfig.GRAYJAY_BASE_VERSION;
                 Logger.i(TAG, "Current version ${currentVersion} latest version ${latestVersion}.");
 
                 if (latestVersion > currentVersion) {
-                    withContext(Dispatchers.Main) {
-                        try {
-                            UIDialogs.showUpdateAvailableDialog(context, latestVersion, hideExceptionButtons);
-                        } catch (e: Throwable) {
-                            UIDialogs.toast(context, "Failed to show update dialog");
-                            Logger.w(TAG, "Error occurred in update dialog.");
+                    notifyUpdateAvailable(latestVersion);
+                    if (showUpToDateToast) {
+                        withContext(Dispatchers.Main) {
+                            UIDialogs.toast(context, "Grayjay v${latestVersion} is available");
                         }
                     }
                 } else {
                     if (showUpToDateToast) {
                         withContext(Dispatchers.Main) {
-                            UIDialogs.toast(context, "Already on latest version");
+                            UIDialogs.toast(context, "Already up to date with Grayjay v${currentVersion}");
                         }
                     }
                 }
@@ -144,6 +145,32 @@ class StateUpdate {
             withContext(Dispatchers.Main) {
                 UIDialogs.toast(context, "Failed to check for updates\n" + e.message);
             }
+        }
+    }
+
+    /**
+     * Only informs the user that a newer official version exists, official builds can't be installed over this one.
+     */
+    fun notifyUpdateAvailable(version: Int) {
+        setUiAvailable(version);
+        try {
+            StateAnnouncement.instance.registerAnnouncement("grayjay-update-available", "Grayjay v${version} is available",
+                "Bluejay is based on Grayjay v${BuildConfig.GRAYJAY_BASE_VERSION}. Merge the new official release into Bluejay to bring it up to date.",
+                AnnouncementType.SESSION, OffsetDateTime.now(), "update");
+        } catch (e: Throwable) {
+            Logger.w(TAG, "Failed to register update announcement", e);
+        }
+    }
+
+    /**
+     * Removes official update APKs downloaded by earlier versions of this build, along with their notifications.
+     */
+    fun removeDownloadedUpdates(context: Context) {
+        try {
+            UpdateNotificationManager.cancelAll(context);
+            File(context.filesDir, "updates").deleteRecursively();
+        } catch (e: Throwable) {
+            Logger.w(TAG, "Failed to remove downloaded updates", e);
         }
     }
 

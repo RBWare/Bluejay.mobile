@@ -487,8 +487,8 @@ class StateAnnouncement {
     fun registerDefaultHandlerAnnouncement() {
         registerAnnouncement(
             "default-url-handler",
-            "Allow Grayjay to open URLs",
-            "Click here to allow Grayjay to open URLs",
+            "Allow Bluejay to open URLs",
+            "Click here to allow Bluejay to open URLs",
             AnnouncementType.SESSION_RECURRING,
             null,
             null,

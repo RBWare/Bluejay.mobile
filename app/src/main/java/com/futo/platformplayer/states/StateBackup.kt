@@ -200,7 +200,7 @@ class StateBackup {
 
             if (backupBytesEncrypted == null && permissionRequest != null) {
                 val (activity, initialUri) = permissionRequest
-                StateApp.instance.requestDirectoryAccess(activity, "Grayjay Backup Directory", "Allows restoring of a backup", initialUri) { uri ->
+                StateApp.instance.requestDirectoryAccess(activity, "Bluejay Backup Directory", "Allows restoring of a backup", initialUri) { uri ->
                     if (uri != null) {
                         scope.launch(Dispatchers.IO) {
                             restoreAutomaticBackup(context, scope, password, ifExists)

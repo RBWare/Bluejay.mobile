@@ -209,7 +209,7 @@
     <string name="under">在</string>
     <string name="construction">施工</string>
     <string name="disable">禁用</string>
-    <string name="the_following_content_cannot_be_opened_in_grayjay_due_to_a_missing_plugin">由于缺少插件，以下内容无法在Grayjay中打开。</string>
+    <string name="the_following_content_cannot_be_opened_in_grayjay_due_to_a_missing_plugin">由于缺少插件，以下内容无法在Bluejay中打开。</string>
     <string name="unknown">未知</string>
     <string name="tap_to_open_in_browser">点击在浏览器中打开</string>
     <string name="missing_plugin">缺少插件</string>
@@ -223,7 +223,7 @@
     <string name="payment_using">使用支付</string>
     <string name="country">国家</string>
     <string name="postal_code">邮政编码</string>
-    <string name="grayjay">Grayjay</string>
+    <string name="grayjay">Bluejay</string>
     <string name="sales_tax">销售税 (</string>
     <string name="total">总计</string>
     <string name="pay">支付</string>
@@ -286,7 +286,7 @@
     <string name="configure_the_auto_updater">配置自动更新器</string>
     <string name="configure_when_updates_should_be_downloaded">配置何时应下载更新</string>
     <string name="configure_when_videos_should_be_downloaded">配置何时应下载视频</string>
-    <string name="creates_a_zip_file_with_your_data_which_can_be_imported_by_opening_it_with_grayjay">创建一个包含您的数据的zip文件，可以通过用Grayjay打开它来导入</string>
+    <string name="creates_a_zip_file_with_your_data_which_can_be_imported_by_opening_it_with_grayjay">创建一个包含您的数据的zip文件，可以通过用Bluejay打开它来导入</string>
     <string name="default_audio_quality">默认音频质量</string>
     <string name="default_playback_speed">默认播放速度</string>
     <string name="default_video_quality">默认视频质量</string>
@@ -478,7 +478,7 @@
     <string name="share_as_text">作为文本分享</string>
     <string name="share_as_a_list_of_video_urls">作为视频网址列表分享</string>
     <string name="share_as_import">作为导入文件分享</string>
-    <string name="share_as_a_import_file_for_grayjay">作为 Grayjay 的导入文件分享</string>
+    <string name="share_as_a_import_file_for_grayjay">作为 Bluejay 的导入文件分享</string>
     <string name="failed_to_load_playlist">加载播放列表失败</string>
     <string name="please_wait_for_playlist_to_finish_loading">请等待播放列表完成加载</string>
     <string name="playlist_copied_as_local_playlist">播放列表已复制为本地播放列表</string>

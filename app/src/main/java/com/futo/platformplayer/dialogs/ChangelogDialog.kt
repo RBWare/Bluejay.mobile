@@ -72,10 +72,6 @@ class ChangelogDialog(context: Context?, val changelogs: Map<Int, String>? = nul
             dismiss();
         };
 
-        _buttonUpdate.setOnClickListener {
-            UIDialogs.showUpdateAvailableDialog(context, _maxVersion);
-            dismiss();
-        };
     }
 
     override fun dismiss() {
@@ -88,7 +84,8 @@ class ChangelogDialog(context: Context?, val changelogs: Map<Int, String>? = nul
         setVersion(version);
 
         val currentVersion = BuildConfig.VERSION_CODE;
-        _buttonUpdate.visibility = if (currentVersion == _maxVersion || changelogs != null) View.GONE else View.VISIBLE;
+        //Official updates can't be installed over this build
+        _buttonUpdate.visibility = View.GONE;
     }
 
     private fun setVersion(version: Int) {

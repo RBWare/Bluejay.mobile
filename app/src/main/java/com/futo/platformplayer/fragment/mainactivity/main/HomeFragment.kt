@@ -203,7 +203,7 @@ class HomeFragment : MainFragment() {
                 //Initial setup
                 return NoResultsView(context, "No enabled sources", if(pluginsExist)
                         "Enable or install some sources"
-                    else "This Grayjay version comes without any sources, install sources externally or using the button below.", R.drawable.ic_sources,
+                    else "This Bluejay version comes without any sources, install sources externally or using the button below.", R.drawable.ic_sources,
                     listOf(BigButton(context, "Browse Online Sources", "View official sources online", R.drawable.ic_explore) {
                         fragment.navigate<BrowserFragment>(BrowserFragment.NavigateOptions("https://plugins.grayjay.app/phone.html", mapOf(
                             Pair("grayjay") { req ->
@@ -317,7 +317,7 @@ class HomeFragment : MainFragment() {
                                 _togglesConfig.save();
                                 initializeToolbarContent();
                             },
-                            "Select which toggles you want to see in order. You can also choose to hide filters in the Grayjay Settings"
+                            "Select which toggles you want to see in order. You can also choose to hide filters in the Bluejay Settings"
                         );
                     }).asButton();
 

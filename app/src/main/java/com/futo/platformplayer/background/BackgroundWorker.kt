@@ -56,7 +56,7 @@ class BackgroundWorker(private val appContext: Context, private val workerParams
                 Logger.e("BackgroundWorker", "FAILED: ${ex.message}", ex);
                 notificationManager.notify(14, NotificationCompat.Builder(appContext, notificationChannel.id)
                     .setSmallIcon(com.futo.platformplayer.R.drawable.foreground)
-                    .setContentTitle("Grayjay")
+                    .setContentTitle("Bluejay")
                     .setContentText("Failed subscriptions update\n${ex.message}")
                     .setSilent(true)
                     .setChannelId(notificationChannel.id).build());
@@ -74,7 +74,7 @@ class BackgroundWorker(private val appContext: Context, private val workerParams
     suspend fun doSubscriptionUpdating(manager: NotificationManager, backgroundChannel: NotificationChannel, contentChannel: NotificationChannel) {
         val notif = NotificationCompat.Builder(appContext, backgroundChannel.id)
             .setSmallIcon(com.futo.platformplayer.R.drawable.foreground)
-            .setContentTitle("Grayjay")
+            .setContentTitle("Bluejay")
             .setContentText("Updating subscriptions...")
             .setSilent(true)
             .setChannelId(backgroundChannel.id)
@@ -146,7 +146,7 @@ class BackgroundWorker(private val appContext: Context, private val workerParams
         /*
             manager.notify(13, NotificationCompat.Builder(appContext, notificationChannel.id)
                 .setSmallIcon(com.futo.platformplayer.R.drawable.foreground)
-                .setContentTitle("Grayjay")
+                .setContentTitle("Bluejay")
                 .setContentText("${newItems.size} new content from ${newSubChanges.size} creators")
                 .setSilent(true)
                 .setChannelId(notificationChannel.id).build());*/
