@@ -38,6 +38,10 @@ class StateForYou {
     private var _discovery: List<IPlatformVideo> = listOf();
     private var _discoveryTime: OffsetDateTime = OffsetDateTime.MIN;
 
+    init {
+        StateMeta.instance.onCreatorHidden.subscribe(this) { removeCreator(it) };
+    }
+
     fun isStale(): Boolean = synchronized(_lock) { _feed.isEmpty() || _feedTime.getNowDiffMinutes() > FEED_STALE_MINUTES };
 
     fun getCachedPager(): IPager<IPlatformContent>? = synchronized(_lock) {
@@ -96,7 +100,7 @@ class StateForYou {
                     reachedEnd = true;
                     continue;
                 }
-                if (item !is IPlatformVideo || item.isShort)
+                if (item !is IPlatformVideo || item.isShort || isHidden(item))
                     continue;
                 if (date != null && date.isAfter(now.plusMinutes(5)))
                     continue;
@@ -260,8 +264,22 @@ class StateForYou {
         return diversify(scored.values.toList());
     }
 
+    private fun isHidden(content: IPlatformContent): Boolean {
+        return StateMeta.instance.isCreatorHidden(content.author.url) || StateMeta.instance.isVideoHidden(content.url);
+    }
+
+    /**
+     * Drops a hidden creator from the cached feed so it is gone without rebuilding.
+     */
+    private fun removeCreator(creatorUrl: String) {
+        synchronized(_lock) {
+            _feed = _feed.filter { it.author.url != creatorUrl };
+            _discovery = _discovery.filter { it.author.url != creatorUrl };
+        }
+    }
+
     private fun isDiscoveryCandidate(video: IPlatformVideo): Boolean {
-        if (video.isShort || video.author.url.isEmpty())
+        if (video.isShort || video.author.url.isEmpty() || isHidden(video))
             return false;
         if (StateSubscriptions.instance.isSubscribed(video.author.url))
             return false;

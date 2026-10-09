@@ -1235,7 +1235,7 @@ class UISlideOverlays {
                         tag = "hide_creator",
                         call = {
                             StateMeta.instance.addHiddenCreator(video.author.url);
-                            UIDialogs.toast(container.context, "[${video.author.name}] hidden, you may need to reload home");
+                            UIDialogs.toast(container.context, "[${video.author.name}] hidden");
                         }))
                         + actions).filterNotNull()
             ));

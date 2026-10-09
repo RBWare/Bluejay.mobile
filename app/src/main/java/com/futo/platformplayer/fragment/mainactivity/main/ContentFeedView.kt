@@ -127,7 +127,7 @@ abstract class ContentFeedView<TFragment> : FeedView<TFragment, IPlatformContent
                 context.getString(R.string.hide_from_home),
                 tag = "hide",
                 call = { StateMeta.instance.addHiddenVideo(content.url);
-                    if (fragment is HomeFragment) {
+                    if (fragment is HomeFragment || fragment is ForYouFragment) {
                         val removeIndex = recyclerData.results.indexOf(content);
                         if (removeIndex >= 0) {
                             recyclerData.results.removeAt(removeIndex);

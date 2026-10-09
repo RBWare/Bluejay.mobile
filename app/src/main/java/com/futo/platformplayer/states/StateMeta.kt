@@ -1,5 +1,6 @@
 package com.futo.platformplayer.states
 
+import com.futo.platformplayer.constructs.Event1
 import com.futo.platformplayer.stores.FragmentedStorage
 import com.futo.platformplayer.stores.StringHashSetStorage
 import com.futo.platformplayer.stores.StringStorage
@@ -9,6 +10,9 @@ class StateMeta {
     val hiddenCreators = FragmentedStorage.get<StringHashSetStorage>("hiddenCreators");
 
     val lastCommentSection = FragmentedStorage.get<StringStorage>("defaultCommentSection");
+
+    /** Emitted with the creator url when a creator is hidden, so feeds can drop its content right away. */
+    val onCreatorHidden = Event1<String>();
 
     fun getLastCommentSection(): Int{
         return when(lastCommentSection.value){
@@ -48,6 +52,7 @@ class StateMeta {
     fun addHiddenCreator(creatorUrl: String) {
         hiddenCreators.addDistinct(creatorUrl);
         hiddenCreators.save();
+        onCreatorHidden.emit(creatorUrl);
     }
     fun removeHiddenCreator(creatorUrl: String) {
         hiddenCreators.remove(creatorUrl);

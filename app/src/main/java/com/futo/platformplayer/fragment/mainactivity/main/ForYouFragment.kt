@@ -19,6 +19,7 @@ import com.futo.platformplayer.logging.Logger
 import com.futo.platformplayer.models.SearchType
 import com.futo.platformplayer.states.StateApp
 import com.futo.platformplayer.states.StateForYou
+import com.futo.platformplayer.states.StateMeta
 import com.futo.platformplayer.states.StatePlugins
 import com.futo.platformplayer.states.StateSubscriptions
 import com.futo.platformplayer.views.FeedStyle
@@ -28,6 +29,8 @@ import com.futo.platformplayer.views.adapters.InsertedViewAdapterWithLoader
 import com.futo.platformplayer.views.adapters.InsertedViewHolder
 import com.futo.platformplayer.views.buttons.BigButton
 import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class ForYouFragment : MainFragment() {
     override val isMainView : Boolean = true;
@@ -103,6 +106,9 @@ class ForYouFragment : MainFragment() {
             StateSubscriptions.instance.onSubscriptionsChanged.subscribe(this) { _, _ ->
                 StateForYou.instance.clear();
             };
+            StateMeta.instance.onCreatorHidden.subscribe(this) { creatorUrl ->
+                fragment.lifecycleScope.launch(Dispatchers.Main) { removeCreatorContent(creatorUrl) };
+            };
             setPreviewsEnabled(Settings.instance.subscriptions.previewFeedItems);
         }
 
@@ -119,6 +125,20 @@ class ForYouFragment : MainFragment() {
         override fun cleanup() {
             super.cleanup();
             StateSubscriptions.instance.onSubscriptionsChanged.remove(this);
+            StateMeta.instance.onCreatorHidden.remove(this);
+        }
+
+        override fun filterResults(results: List<IPlatformContent>): List<IPlatformContent> {
+            return results.filter { !StateMeta.instance.isCreatorHidden(it.author.url) && !StateMeta.instance.isVideoHidden(it.url) };
+        }
+
+        private fun removeCreatorContent(creatorUrl: String) {
+            for (i in recyclerData.results.indices.reversed()) {
+                if (recyclerData.results[i].author.url == creatorUrl) {
+                    recyclerData.results.removeAt(i);
+                    recyclerData.adapter.notifyItemRemoved(recyclerData.adapter.childToParentPosition(i));
+                }
+            }
         }
 
         override fun reload() {
