@@ -53,8 +53,6 @@ import com.futo.platformplayer.services.DownloadService
 import com.futo.platformplayer.stores.FragmentedStorage
 import com.futo.platformplayer.stores.v2.ManagedStore
 import com.futo.platformplayer.views.ToastView
-import com.futo.polycentric.core.ApiMethods
-import com.futo.platformplayer.toBase64Url
 import com.futo.platformplayer.polycentric.ModerationsManager
 import kotlinx.coroutines.*
 import java.io.File
@@ -524,11 +522,6 @@ class StateApp {
             }
         }
 
-        if(Settings.instance.other.polycentricLocalCache) {
-            Logger.i(TAG, "Initialize Polycentric Disk Cache")
-            _cacheDirectory?.let { ApiMethods.initCache(it) };
-        }
-
         if(Settings.instance.plugins.shouldClearWebviewCookies()) {
             try {
                 Logger.i(TAG, "Clearing cookies on startup");
@@ -543,25 +536,6 @@ class StateApp {
         Logger.i(TAG, "MainApp Starting: Initializing [ModerationsManager]");
         ModerationsManager.initialize(context);
 
-        Logger.i(TAG, "MainApp Starting: Setting [ModerationLevelProvider]");
-        ApiMethods.setModerationLevelProvider {
-            try {
-                ModerationsManager.getInstance().getCurrentModerationLevels()
-            } catch (e: IllegalStateException) {
-                Logger.e(TAG, "Failed to get moderation levels from manager", e);
-                null
-            }
-        }
-
-        Logger.i(TAG, "MainApp Starting: Setting [ModerationExemptSystemProvider]");
-        ApiMethods.setModerationExemptSystemProvider {
-            try {
-                StatePolycentric.instance.processHandle?.system?.toProto()?.toByteArray()?.toBase64Url()
-            } catch (e: Throwable) {
-                Logger.e(TAG, "Failed to get moderation exempt system from manager", e);
-                null
-            }
-        }
 
         val logFile = File(context.filesDir, "log.txt");
         if (Settings.instance.logging.logLevel > LogLevel.NONE.value) {
@@ -843,8 +817,8 @@ class StateApp {
         }
         /*
         if(!Settings.instance.comments.didAskPolycentricDefault) {
-            UIDialogs.showDialog(context, R.drawable.neopass, "Default Comment Section", "Bluejay supports 2 comment sections, the Platform comments and Polycentric comments. You can easily toggle between them, but which would you like to be selected by default? This choice can be changed in settings.\n\nPolycentric is still under active development.", null, 1,
-                UIDialogs.Action("Polycentric", {
+            UIDialogs.showDialog(context, R.drawable.harbor_logo, "Default Comment Section", "Bluejay supports 2 comment sections, the Platform comments and Harbor comments. You can easily toggle between them, but which would you like to be selected by default? This choice can be changed in settings.\n\nHarbor is still under active development.", null, 1,
+                UIDialogs.Action("Harbor", {
                     Settings.instance.comments.didAskPolycentricDefault = true;
                     Settings.instance.comments.defaultCommentSection = 0;
                     Settings.instance.save();
@@ -933,6 +907,7 @@ class StateApp {
         StatePlayer.instance.closeMediaSession();
         StateCasting.instance.stop();
         StateSync.instance.stop();
+        StatePolycentric.dispose();
         StatePlayer.dispose();
         Companion.dispose();
         _fileLogConsumer?.close();

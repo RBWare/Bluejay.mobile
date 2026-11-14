@@ -12,7 +12,6 @@ import androidx.core.content.ContextCompat.startActivity
 import com.futo.platformplayer.R
 import com.futo.platformplayer.polycentric.PolycentricAdapter
 import com.futo.platformplayer.states.StatePlatform
-import com.futo.polycentric.core.ClaimType
 
 
 class PlatformLinkView : LinearLayout {
@@ -45,7 +44,7 @@ class PlatformLinkView : LinearLayout {
     fun setPlatform(name: String, url: String) {
 
         if(url.startsWith(PolycentricAdapter.WEB_BASE_URL)) {
-            _imagePlatform.setImageResource(R.drawable.neopass);
+            _imagePlatform.setImageResource(R.drawable.harbor_logo);
         }
         else {
             val icon = StatePlatform.instance.getClientOrNullByUrl(url)?.icon;

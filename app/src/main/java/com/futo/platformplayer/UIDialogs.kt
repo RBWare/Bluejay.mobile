@@ -2,6 +2,8 @@ package com.futo.platformplayer
 
 import android.app.Activity
 import android.app.AlertDialog
+import android.content.ClipData
+import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
@@ -23,6 +25,7 @@ import androidx.lifecycle.lifecycleScope
 import com.futo.platformplayer.activities.MainActivity
 import com.futo.platformplayer.api.media.models.comments.IPlatformComment
 import com.futo.platformplayer.api.media.models.comments.PolycentricPlatformComment
+import com.futo.platformplayer.polycentric.AttributedContent
 import com.futo.platformplayer.api.media.platforms.js.SourcePluginConfig
 import com.futo.platformplayer.casting.StateCasting
 import com.futo.platformplayer.dialogs.AutoUpdateDialog
@@ -509,8 +512,25 @@ class UIDialogs {
         }
         fun appToastError(text: String, long: Boolean) {
             StateApp.withContext {
-                appToast(ToastView.Toast(text, long, it.getColor(R.color.pastel_red)));
+                appToast(ToastView.Toast(text, long, it.getColor(R.color.pastel_red), isError = true));
             };
+        }
+        /**
+         * Shows an in-app toast with a button that copies [details] to the clipboard, falling back
+         * to a system toast (without the button) outside of [MainActivity].
+         */
+        fun appToastWithDetails(text: String, details: String) {
+            StateApp.withContext {
+                if(it is MainActivity) {
+                    it.showAppToast(ToastView.Toast(text, true, isError = true, action = ToastView.Action(it.getString(R.string.copy_details)) {
+                        val clipboard = it.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+                        clipboard.setPrimaryClip(ClipData.newPlainText(it.getString(R.string.copy_details), details))
+                        toast(it, it.getString(R.string.details_copied))
+                    }));
+                }
+                else
+                    toast(text, true);
+            }
         }
         fun appToast(toast: ToastView.Toast) {
             StateApp.withContext {
@@ -538,8 +558,8 @@ class UIDialogs {
             toast.show()
         }
 
-        fun showCommentDialog(context: Context, contextUrl: String, parent: PolycentricPlatformComment?, onCommentAdded: (comment: IPlatformComment) -> Unit) {
-            val dialog = CommentDialog(context, contextUrl, parent);
+        fun showCommentDialog(context: Context, contextUrl: String, contextContent: AttributedContent?, parent: PolycentricPlatformComment?, onCommentAdded: (comment: IPlatformComment) -> Unit) {
+            val dialog = CommentDialog(context, contextUrl, contextContent, parent);
             registerDialogOpened(dialog);
             dialog.setOnDismissListener { registerDialogClosed(dialog) };
             dialog.onCommentAdded.subscribe { onCommentAdded(it); };

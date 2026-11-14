@@ -120,7 +120,6 @@
     <string name="remove_historical_suggestion">Remove historical suggestion</string>
     <string name="comments">Comments</string>
     <string name="comments_description">The comment section underneath content</string>
-    <string name="merchandise">Merchandise</string>
     <string name="reached_the_end_of_the_playlist">Reached the end of the playlist</string>
     <string name="the_playlist_will_restart_after_the_video_is_finished">The playlist will restart after the video is finished</string>
     <string name="restart_now">Restart Now</string>
@@ -170,7 +169,7 @@
     <string name="export">Export</string>
     <string name="delete">Delete</string>
     <string name="loading_update">Loading update…</string>
-    <string name="polycentric_explanation">As you browse online videos and want to leave a comment, consider trying Polycentric, a new way to manage your online presence that\'s both easy to use and focused on your needs. Here\'s why creating a Polycentric profile is a great choice:\n\n 1. You\'re in Control: With Polycentric, your data isn\'t stored in one place controlled by a single company. Instead, it\'s spread across multiple locations, giving you more control over your online presence. You decide where your data is stored and can easily switch between providers or add new ones.\n\n 2. Privacy and Security: Polycentric keeps your information safe by using advanced security techniques. You can trust that your personal details are well-protected and only accessible by those you choose to share them with.\n\n 3. Seamless Networking: Polycentric lets you connect with others and interact with their content without being tied to a single platform. If a provider becomes unreliable or tries to block access, your Polycentric client will automatically find information from other sources, keeping you connected.\n\n 4. Smart Search and Recommendations: Polycentric uses multiple sources for search and recommendations, offering you top-notch performance while ensuring no single provider has too much influence over the results you see.\n\n 5. Adaptable and Open: Polycentric is designed to be flexible and open to new developments, allowing for constant improvements and new features that adapt to the needs of its users.\n\n 6. By creating a Polycentric profile, you can leave comments on online videos and enjoy a more personalized online experience. See for yourself how this user-friendly solution puts you in control of your digital life. Sign up for Polycentric today!</string>
+    <string name="polycentric_explanation">As you browse online videos and want to leave a comment, consider trying Harbor, a new way to manage your online presence that\'s both easy to use and focused on your needs. Here\'s why creating a Harbor profile is a great choice:\n\n 1. You\'re in Control: With Harbor, your data isn\'t stored in one place controlled by a single company. Instead, it\'s spread across multiple locations, giving you more control over your online presence. You decide where your data is stored and can easily switch between providers or add new ones.\n\n 2. Privacy and Security: Harbor keeps your information safe by using advanced security techniques. You can trust that your personal details are well-protected and only accessible by those you choose to share them with.\n\n 3. Seamless Networking: Harbor lets you connect with others and interact with their content without being tied to a single platform. If a provider becomes unreliable or tries to block access, your Harbor client will automatically find information from other sources, keeping you connected.\n\n 4. Smart Search and Recommendations: Harbor uses multiple sources for search and recommendations, offering you top-notch performance while ensuring no single provider has too much influence over the results you see.\n\n 5. Adaptable and Open: Harbor is designed to be flexible and open to new developments, allowing for constant improvements and new features that adapt to the needs of its users.\n\n 6. By creating a Harbor profile, you can leave comments on online videos and enjoy a more personalized online experience. See for yourself how this user-friendly solution puts you in control of your digital life. Sign up for Harbor today!</string>
     <string name="publish">Publish</string>
     <string name="usage">Usage</string>
     <string name="enable_in_home">Enable in home</string>
@@ -195,7 +194,7 @@
     <string name="send_your_identity_to_another_app">Send your identity to another app</string>
     <string name="copy">Copy</string>
     <string name="copy_your_identity_to_clipboard">Copy your identity to clipboard</string>
-    <string name="polycentric">Polycentric</string>
+    <string name="polycentric">Harbor</string>
     <string name="harbor">Harbor</string>
     <string name="platform">Platform</string>
     <string name="profile_name">Profile Name</string>
@@ -242,29 +241,19 @@
     <string name="ignore">Ignore</string>
     <string name="view_changelog">View changelog</string>
     <string name="i_already_paid">I Already Paid</string>
-    <string name="memberships">Memberships</string>
-    <string name="a_monthly_recurring_payment_with_often">A monthly recurring payment with often</string>
-    <string name="additional_perks">additional perks</string>
-    <string name="a_one_time_payment_to_support_the_creator">A one-time payment to support the creator</string>
-    <string name="a_store_by_the_creator">A store by the creator</string>
-    <string name="donation">Donation</string>
-    <string name="promotions">Promotions</string>
-    <string name="current_promotions_by_this_creator">Current promotions by this creator</string>
     <string name="downloading">Downloading</string>
     <string name="videos">Videos</string>
     <string name="clear_history">Clear history</string>
     <string name="nothing_to_import">Nothing to import</string>
     <string name="no_sources_installed">You have no sources installed, please add sources to use the app as intended.</string>
     <string name="enabling_lots_of_sources_can_reduce_the_loading_speed_of_your_application">Enabling lots of sources can reduce the loading speed of your application.</string>
-    <string name="support">Support</string>
     <string name="membership">Membership</string>
-    <string name="store">Store</string>
     <string name="live_chat">Live Chat</string>
     <string name="vod_chat">VOD Chat</string>
     <string name="remove">Remove</string>
     <string name="space_videos">Videos</string>
     <string name="playlist">Playlist</string>
-    <string name="neopass_channel">Polycentric channel</string>
+    <string name="neopass_channel">Harbor channel</string>
     <string name="enable">Enable</string>
     <string name="under_construction">Under Construction</string>
     <string name="under">UNDER</string>
@@ -308,7 +297,6 @@
     <string name="view_a_more_in_depth_video">View a more in-depth video</string>
     <string name="technical_documentation">Technical Documentation</string>
     <string name="view_the_technical_documentation">View the technical documentation</string>
-    <string name="visit_my_store">Visit my store</string>
     <string name="make_a_backup_of_your_identity">Make a backup of your identity</string>
     <string name="sign_out_of_this_identity">Sign out of this identity</string>
     <string name="delete_this_profile">Delete this profile</string>
@@ -489,8 +477,8 @@
     <string name="view_license_status">View license status</string>
     <string name="sync_grayjay">Sync Bluejay</string>
     <string name="sync_grayjay_description">Sync your data across multiple devices</string>
-    <string name="manage_polycentric_identity">Manage Polycentric identity</string>
-    <string name="manage_your_polycentric_identity">Manage your Polycentric identity</string>
+    <string name="manage_polycentric_identity">Manage Harbor identity</string>
+    <string name="manage_your_polycentric_identity">Manage your Harbor identity</string>
     <string name="manual_check">Manual check</string>
     <string name="manually_check_for_updates">Manually check for updates</string>
     <string name="number_of_concurrent_threads_to_multiply_download_speeds_from_throttled_sources">Number of concurrent threads to multiply download speeds from throttled sources</string>
@@ -505,9 +493,10 @@
     <string name="watch_later_add_start">Add new videos to the beginning of Watch Later</string>
     <string name="watch_later_add_start_description">When adding videos to Watch Later add them to the beginning of the list instead of the end</string>
     <string name="already_in_watch_later">Already in watch later</string>
-    <string name="enable_polycentric">Enable Polycentric</string>
-    <string name="polycentric_local_cache">Enable Polycentric Local Caching</string>
-    <string name="polycentric_local_cache_description">Caches polycentric results on-device to reduce load times, changing requires app reboot</string>
+    <string name="added_to_playlist">Added to playlist [%1$s]</string>
+    <string name="video_already_in_playlist">Video is already in playlist [%1$s]</string>
+    <string name="playlist_no_longer_exists">Playlist [%1$s] no longer exists</string>
+    <string name="enable_polycentric">Enable Harbor</string>
     <string name="can_be_disabled_when_you_are_experiencing_issues">Can be disabled when you are experiencing issues</string>
     <string name="bypass_rotation_prevention_description">Allows for rotation on non-video views.\nWARNING: Not designed for it</string>
     <string name="bypass_rotation_prevention_warning">This may cause unexpected behavior, and is mostly untested.</string>
@@ -532,6 +521,26 @@
     <string name="default_recommendations_description">Show recommendations as default, instead of comments.</string>
     <string name="bad_reputation_comments_fading">Bad Reputation Comment Fading</string>
     <string name="bad_reputation_comments_fading_description">If comments with a very bad reputation should be faded. Disabling may worsen experience.</string>
+    <string name="harbor_moderation">Harbor moderation</string>
+    <string name="harbor_moderation_description">Choose how Harbor comments labeled by moderators appear</string>
+    <string name="content_moderation">Content Moderation</string>
+    <string name="content_moderation_blurb">Choose how Harbor comments labeled by moderators appear. Hidden comments are not shown at all; warned comments are covered until you tap Show.</string>
+    <string name="moderation_level_hide">Hide</string>
+    <string name="moderation_level_warn">Warn</string>
+    <string name="moderation_level_show">Show</string>
+    <string name="moderation_label_hate">Hate</string>
+    <string name="moderation_label_hate_description">Hate speech or incitement against groups</string>
+    <string name="moderation_label_self_harm">Self-Harm</string>
+    <string name="moderation_label_self_harm_description">Self-harm, eating disorders, suicide</string>
+    <string name="moderation_label_sexually_suggestive">Sexually Suggestive</string>
+    <string name="moderation_label_sexually_suggestive_description">Innuendo or implied sexual acts</string>
+    <string name="moderation_label_sexually_explicit">Sexually Explicit</string>
+    <string name="moderation_label_sexually_explicit_description">Pornography or explicit sexual acts</string>
+    <string name="moderation_label_violence">Violence</string>
+    <string name="moderation_label_violence_description">Violent acts, gore, injury, or terrorism</string>
+    <string name="content_warning_labels">Content warning: %1$s</string>
+    <string name="applied_by">Applied by %1$s</string>
+    <string name="the_author">the author</string>
     <string name="reinstall_embedded_plugins">Reinstall Embedded Plugins</string>
     <string name="remove_cached_version">Remove Cached Version</string>
     <string name="remove_the_last_downloaded_version">Remove the last downloaded version</string>
@@ -665,7 +674,7 @@
     <string name="invalid_license_format">Invalid license format</string>
     <string name="unknown_content_format">Unknown content format</string>
     <string name="unknown_file_format">Unknown file format</string>
-    <string name="unknown_polycentric_format">Unknown Polycentric format</string>
+    <string name="unknown_polycentric_format">Unknown Harbor format</string>
     <string name="unknown_url_format">Unknown url format</string>
     <string name="failed_to_handle_file">Failed to handle file</string>
     <string name="unknown_reconstruction_type">Unknown reconstruction type</string>
@@ -674,8 +683,13 @@
     <string name="failed_to_generate_qr_code">Failed to generate QR code</string>
     <string name="share_text">Share Text</string>
     <string name="copied_text">Copied Text</string>
+    <string name="copy_details">Copy details</string>
+    <string name="details_copied">Details copied</string>
     <string name="must_be_at_least_3_characters_long">Must be at least 3 characters long.</string>
     <string name="failed_to_create_profile">Failed to create profile.</string>
+    <string name="failed_to_delete_profile">Failed to delete profile.</string>
+    <string name="failed_to_log_out">Failed to log out.</string>
+    <string name="failed_to_switch_identity">Failed to sign in to this identity.</string>
     <string name="failed_to_fully_backfill_servers">Failed to fully backfill servers.</string>
     <string name="sign_in_to_this_identity">Sign in to this identity</string>
     <string name="text_field_does_not_contain_any_data">Text field does not contain any data</string>
@@ -686,6 +700,8 @@
     <string name="are_you_sure_you_want_to_remove_this_profile">Are you sure you want to remove this profile?</string>
     <string name="no_process_handle_set">No process handle set</string>
     <string name="name_must_be_at_least_3_characters_long">Name must be at least 3 characters long</string>
+    <string name="name_is_too_long">Name is too long</string>
+    <string name="name_is_invalid">Name is invalid</string>
     <string name="process_handle_unset">Process handle unset</string>
     <string name="failed_to_read_image">Failed to read image</string>
     <string name="changes_have_been_saved">Changes have been saved</string>
@@ -833,6 +849,8 @@
     <string name="seconds">seconds</string>
     <string name="please_login_to_post_a_comment">Please login to post a comment</string>
     <string name="failed_to_post_comment">Failed to post comment:</string>
+    <string name="failed_to_set_rating">Failed to set rating:</string>
+    <string name="failed_to_delete_comment">Failed to delete comment:</string>
     <string name="waiting_for_unmetered">Waiting for unmetered</string>
     <string name="last_error">Last error</string>
     <string name="error">Error</string>
@@ -872,10 +890,8 @@
     <string name="select_your_pins_in_order">Select your pins in order</string>
     <string name="more_options">More Options</string>
     <string name="save">Save</string>
-    <string name="this_creator_has_not_set_any_support_options_on_harbor_polycentric">This creator has not set any support options on Harbor (Polycentric)</string>
     <string name="load_more">Load More</string>
     <string name="stopped_after_requestcount_to_avoid_rate_limit_click_load_more_to_load_more">Stopped after {requestCount} to avoid rate limit, click load more to load more.</string>
-    <string name="this_creator_has_not_setup_any_monetization_features">This creator has not setup any monetization features</string>
     <string name="plus_tax">" + Tax"</string>
     <string name="new_playlist">New playlist</string>
     <string name="add_to_new_playlist">Add to new playlist</string>
@@ -896,7 +912,76 @@
     <string name="fcast_website">FCast Website</string>
     <string name="fcast_technical_documentation">FCast Technical Documentation</string>
     <string name="login_to_view_your_comments">Login to view your comments</string>
-    <string name="polycentric_is_disabled">Polycentric is disabled</string>
+    <string name="polycentric_is_disabled">Harbor is disabled</string>
+    <string name="polycentric_migration_complete">Your Polycentric profile has been moved to Harbor. You will need to reupload your profile picture.</string>
+    <string name="polycentric_migration_complete_multiple">Your Polycentric profiles have been moved to Harbor. You will need to reupload your profile pictures.</string>
+    <string name="polycentric_migration_failed">Your Polycentric profile could not be moved to Harbor</string>
+    <string name="polycentric_migration_not_found">No Harbor account was found for this profile.</string>
+    <string name="polycentric_migration_already_claimed">Your Polycentric profile could not be moved to Harbor because it was already moved on another device. Pair this device from that device instead.</string>
+    <string name="polycentric_migration_create_new">Create new</string>
+    <string name="import_polycentric_profile">Import Polycentric profile</string>
+    <string name="import_polycentric_profile_description">Move a profile exported from Polycentric to Harbor</string>
+    <string name="choose_an_import_option">Choose an import option</string>
+    <string name="harbor_moderation_settings">Moderation Settings</string>
+    <string name="harbor_moderation_settings_description">Set moderation settings for polycentric comments</string>
+    <string name="harbor_servers">Servers</string>
+    <string name="harbor_servers_configure">Configure servers</string>
+    <string name="harbor_servers_view">View servers</string>
+    <string name="harbor_servers_empty">No servers configured</string>
+    <string name="harbor_servers_load_failed">Could not load servers</string>
+    <string name="harbor_server_url_placeholder">https://server.example.com</string>
+    <string name="harbor_server_add">Add server</string>
+    <string name="harbor_server_added">Server added</string>
+    <string name="harbor_server_already_added">Server already added</string>
+    <string name="harbor_server_add_failed">Could not add server</string>
+    <string name="harbor_server_add_failed_inline">Could not add server.</string>
+    <string name="harbor_server_remove_message">Remove %1$s?</string>
+    <string name="harbor_server_removed">Server removed</string>
+    <string name="harbor_server_remove_failed">Could not remove server</string>
+    <string name="harbor_server_last_required">At least one server is required</string>
+    <string name="show_logs">Show logs</string>
+    <string name="hide_logs">Hide logs</string>
+    <string name="pairing_pair_with_existing_device">Pair with existing device</string>
+    <string name="pairing_pair_with_existing_device_description">Sign in with an identity from another device</string>
+    <string name="pairing_pair_a_device">Pair a device</string>
+    <string name="pairing_pair_a_device_description">Sign in to this identity on another device</string>
+    <string name="pairing_cannot_issue_description">This device was added without management access, so it can\'t pair other devices</string>
+    <string name="pairing_entry_instructions">On your other device, go to Settings → Pair Identity. Then scan the QR code it shows, or copy the pairing link and paste it here.</string>
+    <string name="pairing_scan_qr_code">Scan QR code</string>
+    <string name="pairing_paste_link">Paste pairing link</string>
+    <string name="pairing_continue">Continue</string>
+    <string name="pairing_invalid_link">Invalid pairing link.</string>
+    <string name="pairing_loading_session">Loading pairing session…</string>
+    <string name="pairing_joining_session">Joining pairing session…</string>
+    <string name="pairing_creating_session">Creating pairing session…</string>
+    <string name="pairing_is_this_you">Is this you?</string>
+    <string name="pairing_pair">Pair</string>
+    <string name="pairing_your_matching_code">Your matching code</string>
+    <string name="pairing_waiting_for_approval">Waiting for approval from other device</string>
+    <string name="pairing_check_other_device">Check your other device</string>
+    <string name="pairing_completing_setup">Approved! Completing setup…</string>
+    <string name="pairing_claimer_success">Pair successful!</string>
+    <string name="pairing_failed">Pairing failed.</string>
+    <string name="pairing_expired">The pairing link expired.</string>
+    <string name="pairing_expired_waiting">The pairing link expired before this device was approved.</string>
+    <string name="pairing_expired_waiting_details">If you approved this device on your other device, try pairing again.</string>
+    <string name="pairing_poll_failed_retrying">Couldn\'t check for approval. Retrying…</string>
+    <string name="pairing_poll_claimers_failed_retrying">Couldn\'t check for devices. Retrying…</string>
+    <string name="pairing_identity_exists">This identity is already on this device.</string>
+    <string name="pairing_go_back">Go back</string>
+    <string name="pairing_issuer_instructions">On your other device, choose \"Pair with existing device\". From there, you can scan the QR code shown here, or paste the pairing link after copying it.</string>
+    <string name="pairing_copy_link">Copy pairing link</string>
+    <string name="pairing_link_copied">Pairing link copied</string>
+    <string name="pairing_valid_for">Valid for %1$s</string>
+    <string name="pairing_pending_approval">Pending approval</string>
+    <string name="pairing_pending_approval_description">Approve only if these emojis match the ones on your other device.</string>
+    <string name="pairing_approve">Approve</string>
+    <string name="pairing_deny">Deny</string>
+    <string name="pairing_add_as_rotation_key">Add as rotation key</string>
+    <string name="pairing_add_as_rotation_key_description">Gives this device management access.</string>
+    <string name="pairing_issuer_success">Pairing successful.</string>
+    <string name="pairing_profile_cta">After you\'ve installed Harbor, you can sign in to this profile there with the Pair a device button.</string>
+    <string name="pairing_issuer_success_details">Your other device should see the approval soon.</string>
     <string name="play_pause">Play Pause</string>
     <string name="position">Position</string>
     <string name="tutorials">Tutorials</string>
@@ -960,7 +1045,7 @@
     <string name="cd_button_stop">Stop</string>
     <string name="cd_button_scan_qr">Scan QR code</string>
     <string name="cd_button_help">Help</string>
-    <string name="cd_image_polycentric">Change Polycentric profile picture</string>
+    <string name="cd_image_polycentric">Change Harbor profile picture</string>
     <string-array name="home_screen_array">
         <item>Recommendations</item>
         <item>Subscriptions</item>
@@ -1092,6 +1177,7 @@
         <item>Arabic (AR)</item>
         <item>Italian (IT)</item>
         <item>Turkish (TR)</item>
+        <item>Azerbaijani (AZ)</item>
     </string-array>
     <string-array name="player_background_behavior">
         <item>None</item>
@@ -1110,7 +1196,7 @@
         <item>120</item>
     </string-array>
     <string-array name="comment_sections">
-        <item>Polycentric</item>
+        <item>Harbor</item>
         <item>Platform</item>
         <item>Last Selected</item>
     </string-array>
@@ -1131,6 +1217,7 @@
         <item>Portuguese</item>
         <item>Chinese</item>
         <item>Italian</item>
+        <item>Azerbaijani</item>
     </string-array>
     <string-array name="casting_device_type_array" translatable="false">
         <item>FCast</item>

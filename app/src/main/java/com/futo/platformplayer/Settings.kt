@@ -10,6 +10,7 @@ import com.futo.platformplayer.activities.IWithResultLauncher
 import com.futo.platformplayer.activities.MainActivity
 import com.futo.platformplayer.activities.ManageTabsActivity
 import com.futo.platformplayer.activities.PolycentricHomeActivity
+import com.futo.platformplayer.activities.PolycentricModerationActivity
 import com.futo.platformplayer.activities.PolycentricProfileActivity
 import com.futo.platformplayer.activities.SyncHomeActivity
 import com.futo.platformplayer.api.http.ManagedHttpClient
@@ -75,13 +76,13 @@ class Settings : FragmentedStorageFileJson() {
     fun managePolycentricIdentity() {
         StateApp?.instance?.activity?.let {
             if (StatePolycentric.instance.enabled) {
-                if (StatePolycentric.instance.processHandle != null) {
+                if (StatePolycentric.instance.isLoggedIn) {
                     it.startActivity(Intent(it, PolycentricProfileActivity::class.java));
                 } else {
                     it.startActivity(Intent(it, PolycentricHomeActivity::class.java));
                 }
             } else {
-                UIDialogs.toast(it, "Polycentric is disabled")
+                UIDialogs.toast(it, "Harbor is disabled")
             }
         }
     }
@@ -205,6 +206,7 @@ class Settings : FragmentedStorageFileJson() {
                 10 -> "ar";
                 11 -> "it";
                 12 -> "tr";
+                13 -> "az";
                 else -> null
             }
         }
@@ -406,6 +408,7 @@ class Settings : FragmentedStorageFileJson() {
                 13 -> "pt";
                 14 -> "zh";
                 15 -> "it";
+                16 -> "az";
                 else -> null
             }
         }
@@ -646,6 +649,14 @@ class Settings : FragmentedStorageFileJson() {
 
         @FormField(R.string.bad_reputation_comments_fading, FieldForm.TOGGLE, R.string.bad_reputation_comments_fading_description, 0)
         var badReputationCommentsFading: Boolean = true;
+
+        @FormField(R.string.harbor_moderation, FieldForm.BUTTON, R.string.harbor_moderation_description, 1)
+        @FormFieldButton(R.drawable.ic_warning)
+        fun openHarborModeration() {
+            StateApp.instance.activity?.let {
+                it.startActivity(Intent(it, PolycentricModerationActivity::class.java));
+            }
+        }
 
     }
 
@@ -1069,8 +1080,6 @@ class Settings : FragmentedStorageFileJson() {
         @FormField(R.string.enable_polycentric, FieldForm.TOGGLE, R.string.can_be_disabled_when_you_are_experiencing_issues, 5)
         var polycentricEnabled: Boolean = true;
 
-        @FormField(R.string.polycentric_local_cache, FieldForm.TOGGLE, R.string.polycentric_local_cache_description, 7)
-        var polycentricLocalCache: Boolean = true;
         var showPrivacyModeDialog: Boolean = true;
     }
 

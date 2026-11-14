@@ -171,18 +171,11 @@
     <string name="sources_required_need_to_be_enabled">المصادر المطلوبة يجب تفعيلها</string>
     <string name="view_changelog">عرض سجل التغييرات</string>
     <string name="i_already_paid">لقد دفعت بالفعل</string>
-    <string name="memberships">عضويات</string>
-    <string name="a_monthly_recurring_payment_with_often">دفعة متكررة شهرياً مع مزايا إضافية بشكل متكرر</string>
-    <string name="additional_perks">مزايا إضافية</string>
-    <string name="a_one_time_payment_to_support_the_creator">دفعة واحدة لدعم المبدع</string>
-    <string name="donation">تبرع</string>
     <string name="downloading">جاري التحميل</string>
     <string name="videos">فيديوهات</string>
     <string name="clear_history">مسح السجل</string>
     <string name="nothing_to_import">لا شيء لاستيراده</string>
     <string name="enabling_lots_of_sources_can_reduce_the_loading_speed_of_your_application">تفعيل العديد من المصادر يمكن أن يقلل من سرعة تحميل التطبيق</string>
-    <string name="support">دعم</string>
-    <string name="store">متجر</string>
     <string name="live_chat">دردشة مباشرة</string>
     <string name="remove">إزالة</string>
     <string name="space_videos">فيديوهات</string>
@@ -229,7 +222,6 @@
     <string name="view_a_more_in_depth_video">عرض فيديو أكثر تفصيليًا</string>
     <string name="technical_documentation">التوثيق التقني</string>
     <string name="view_the_technical_documentation">عرض التوثيق التقني</string>
-    <string name="visit_my_store">زيارة متجري</string>
     <string name="announcement">إعلان</string>
     <string name="attempt_to_utilize_byte_ranges">محاولة استخدام مدى البايت</string>
     <string name="auto_update">تحديث تلقائي</string>
@@ -600,7 +592,7 @@
     <string name="end_of_playlist_reached">تم الوصول إلى نهاية القائمة</string>
     <string name="end_of_watch_later_reached">تم الوصول إلى نهاية قائمة مشاهدة لاحقا</string>
     <string name="reached_the_end_of_the_queue">تم الوصول إلى نهاية الطابور</string>
-    <string name="polycentric_explanation">عندما تتصفح مقاطع الفيديو عبر الإنترنت وترغب في ترك تعليق، فكر في استخدام Polycentric، وهو طريقة جديدة لإدارة حضورك على الإنترنت تركز على احتياجاتك وسهلة الاستخدام. إليك الأسباب التي تجعل من إنشاء ملف Polycentric خيارًا رائعًا:\n\n 1. أنت تتحكم: في Polycentric، لا يتم تخزين بياناتك في مكان واحد تتحكم فيه شركة واحدة. بدلاً من ذلك، يتم نشرها عبر مواقع متعددة، مما يعطيك المزيد من السيطرة على حضورك على الإنترنت. يمكنك تحديد مكان تخزين البيانات والتبديل بسهولة بين مزودين أو إضافة مزودين جدد.\n\n 2. الخصوصية والأمان: يحافظ Polycentric على أمان معلوماتك من خلال استخدام تقنيات الأمان المتقدمة. يمكنك الثقة في أن تفاصيلك الشخصية محمية جيدًا ومتاحة فقط لأولئك الذين تختار مشاركتهم بها.\n\n 3. التواصل السلس: يتيح لك Polycentric الاتصال بالآخرين والتفاعل مع محتواهم دون الارتباط بمنصة واحدة. إذا أصبح المزود غير موثوق أو حاول حجب الوصول، سيجد عميل Polycentric المعلومات تلقائيًا من مصادر أخرى، مما يبقيك متصلاً.\n\n 4. البحث الذكي والتوصيات: يستخدم Polycentric مصادر متعددة للبحث والتوصيات، مما يقدم لك أداءً رائعًا مع ضمان عدم وجود تأثير كبير لأي مزود على النتائج التي تراها.\n\n 5. متكيف ومفتوح: تم تصميم Polycentric ليكون مرنًا ومفتوحًا للتطورات الجديدة، مما يسمح بتحسينات مستمرة وميزات جديدة تتكيف مع احتياجات مستخدميه.\n\n 6. من خلال إنشاء ملف Polycentric، يمكنك ترك تعليقات على مقاطع الفيديو عبر الإنترنت والتمتع بتجربة على الإنترنت أكثر تخصيصًا. جرب بنفسك كيف يضع هذا الحل السهل الاستخدام في يديك السيطرة على حياتك الرقمية. سجل في Polycentric اليوم!</string>
+    <string name="polycentric_explanation">عندما تتصفح مقاطع الفيديو عبر الإنترنت وترغب في ترك تعليق، فكر في استخدام Harbor، وهو طريقة جديدة لإدارة حضورك على الإنترنت تركز على احتياجاتك وسهلة الاستخدام. إليك الأسباب التي تجعل من إنشاء ملف Harbor خيارًا رائعًا:\n\n 1. أنت تتحكم: في Harbor، لا يتم تخزين بياناتك في مكان واحد تتحكم فيه شركة واحدة. بدلاً من ذلك، يتم نشرها عبر مواقع متعددة، مما يعطيك المزيد من السيطرة على حضورك على الإنترنت. يمكنك تحديد مكان تخزين البيانات والتبديل بسهولة بين مزودين أو إضافة مزودين جدد.\n\n 2. الخصوصية والأمان: يحافظ Harbor على أمان معلوماتك من خلال استخدام تقنيات الأمان المتقدمة. يمكنك الثقة في أن تفاصيلك الشخصية محمية جيدًا ومتاحة فقط لأولئك الذين تختار مشاركتهم بها.\n\n 3. التواصل السلس: يتيح لك Harbor الاتصال بالآخرين والتفاعل مع محتواهم دون الارتباط بمنصة واحدة. إذا أصبح المزود غير موثوق أو حاول حجب الوصول، سيجد عميل Harbor المعلومات تلقائيًا من مصادر أخرى، مما يبقيك متصلاً.\n\n 4. البحث الذكي والتوصيات: يستخدم Harbor مصادر متعددة للبحث والتوصيات، مما يقدم لك أداءً رائعًا مع ضمان عدم وجود تأثير كبير لأي مزود على النتائج التي تراها.\n\n 5. متكيف ومفتوح: تم تصميم Harbor ليكون مرنًا ومفتوحًا للتطورات الجديدة، مما يسمح بتحسينات مستمرة وميزات جديدة تتكيف مع احتياجات مستخدميه.\n\n 6. من خلال إنشاء ملف Harbor، يمكنك ترك تعليقات على مقاطع الفيديو عبر الإنترنت والتمتع بتجربة على الإنترنت أكثر تخصيصًا. جرب بنفسك كيف يضع هذا الحل السهل الاستخدام في يديك السيطرة على حياتك الرقمية. سجل في Harbor اليوم!</string>
     <string name="publish">نشر</string>
     <string name="usage">الاستخدام</string>
     <string name="enable_in_home">تمكين في الصفحة الرئيسية</string>
@@ -719,5 +711,6 @@
         <item>العربية (AR)</item>
         <item>الإيطالية (IT)</item>
         <item>التركية (TR)</item>
+        <item>الأذربيجانية (AZ)</item>
     </string-array>
 </resources>

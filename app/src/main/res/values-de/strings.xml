@@ -116,7 +116,7 @@
     <string name="export">Exportieren</string>
     <string name="delete">Löschen</string>
     <string name="loading_update">Update wird geladen…</string>
-    <string name="polycentric_explanation">Wenn Sie Online-Videos durchstöbern und einen Kommentar hinterlassen möchten, sollten Sie Polycentric ausprobieren, eine neue Möglichkeit, Ihre Online-Präsenz zu verwalten, die sowohl einfach zu bedienen ist als auch auf Ihre Bedürfnisse ausgerichtet ist. Hier sind einige Gründe, warum die Erstellung eines Polycentric-Profils eine gute Wahl ist:\n\n 1. Sie haben die Kontrolle: Mit Polycentric werden Ihre Daten nicht an einem Ort gespeichert, der von einem einzigen Unternehmen kontrolliert wird. Stattdessen sind sie an mehreren Orten verteilt, was Ihnen mehr Kontrolle über Ihre Online-Präsenz gibt. Sie entscheiden, wo Ihre Daten gespeichert werden und können problemlos zwischen Anbietern wechseln oder neue hinzufügen.\n\n 2. Datenschutz und Sicherheit: Polycentric schützt Ihre Informationen durch den Einsatz fortschrittlicher Sicherheitstechniken. Sie können darauf vertrauen, dass Ihre persönlichen Daten gut geschützt sind und nur von denen zugänglich sind, mit denen Sie sie teilen möchten.\n\n 3. Nahtloses Netzwerken: Polycentric ermöglicht es Ihnen, sich mit anderen zu verbinden und mit ihrem Inhalt zu interagieren, ohne an eine einzige Plattform gebunden zu sein. Wenn ein Anbieter unzuverlässig wird oder versucht, den Zugriff zu blockieren, findet Ihr Polycentric-Client automatisch Informationen aus anderen Quellen, um Sie verbunden zu halten.\n\n 4. Intelligente Suche und Empfehlungen: Polycentric verwendet mehrere Quellen für Suche und Empfehlungen, sodass Sie erstklassige Leistung erhalten und gleichzeitig sicherstellen, dass kein einzelner Anbieter zu viel Einfluss auf die Ergebnisse hat, die Sie sehen.\n\n 5. Anpassbar und offen: Polycentric ist darauf ausgelegt, flexibel zu sein und sich neuen Entwicklungen zu öffnen, was ständige Verbesserungen und neue Funktionen ermöglicht, die sich an die Bedürfnisse seiner Benutzer anpassen.\n\n 6. Durch die Erstellung eines Polycentric-Profils können Sie Kommentare zu Online-Videos hinterlassen und ein personalisiertes Online-Erlebnis genießen. Überzeugen Sie sich selbst, wie diese benutzerfreundliche Lösung Ihnen die Kontrolle über Ihr digitales Leben gibt. Melden Sie sich noch heute für Polycentric an!</string>
+    <string name="polycentric_explanation">Wenn Sie Online-Videos durchstöbern und einen Kommentar hinterlassen möchten, sollten Sie Harbor ausprobieren, eine neue Möglichkeit, Ihre Online-Präsenz zu verwalten, die sowohl einfach zu bedienen ist als auch auf Ihre Bedürfnisse ausgerichtet ist. Hier sind einige Gründe, warum die Erstellung eines Harbor-Profils eine gute Wahl ist:\n\n 1. Sie haben die Kontrolle: Mit Harbor werden Ihre Daten nicht an einem Ort gespeichert, der von einem einzigen Unternehmen kontrolliert wird. Stattdessen sind sie an mehreren Orten verteilt, was Ihnen mehr Kontrolle über Ihre Online-Präsenz gibt. Sie entscheiden, wo Ihre Daten gespeichert werden und können problemlos zwischen Anbietern wechseln oder neue hinzufügen.\n\n 2. Datenschutz und Sicherheit: Harbor schützt Ihre Informationen durch den Einsatz fortschrittlicher Sicherheitstechniken. Sie können darauf vertrauen, dass Ihre persönlichen Daten gut geschützt sind und nur von denen zugänglich sind, mit denen Sie sie teilen möchten.\n\n 3. Nahtloses Netzwerken: Harbor ermöglicht es Ihnen, sich mit anderen zu verbinden und mit ihrem Inhalt zu interagieren, ohne an eine einzige Plattform gebunden zu sein. Wenn ein Anbieter unzuverlässig wird oder versucht, den Zugriff zu blockieren, findet Ihr Harbor-Client automatisch Informationen aus anderen Quellen, um Sie verbunden zu halten.\n\n 4. Intelligente Suche und Empfehlungen: Harbor verwendet mehrere Quellen für Suche und Empfehlungen, sodass Sie erstklassige Leistung erhalten und gleichzeitig sicherstellen, dass kein einzelner Anbieter zu viel Einfluss auf die Ergebnisse hat, die Sie sehen.\n\n 5. Anpassbar und offen: Harbor ist darauf ausgelegt, flexibel zu sein und sich neuen Entwicklungen zu öffnen, was ständige Verbesserungen und neue Funktionen ermöglicht, die sich an die Bedürfnisse seiner Benutzer anpassen.\n\n 6. Durch die Erstellung eines Harbor-Profils können Sie Kommentare zu Online-Videos hinterlassen und ein personalisiertes Online-Erlebnis genießen. Überzeugen Sie sich selbst, wie diese benutzerfreundliche Lösung Ihnen die Kontrolle über Ihr digitales Leben gibt. Melden Sie sich noch heute für Harbor an!</string>
     <string name="publish">Veröffentlichen</string>
     <string name="usage">Nutzung</string>
     <string name="enable_in_home">Zu Hause aktivieren</string>
@@ -139,7 +139,7 @@
     <string name="send_your_identity_to_another_app">Senden Sie Ihre Identität an eine andere App</string>
     <string name="copy">Kopieren</string>
     <string name="copy_your_identity_to_clipboard">Kopieren Sie Ihre Identität in die Zwischenablage</string>
-    <string name="polycentric">Polycentric</string>
+    <string name="polycentric">Harbor</string>
     <string name="profile_name">Profilname</string>
     <string name="this_will_be_visible_to_other_users">Dies wird für andere Benutzer sichtbar sein</string>
     <string name="create_profile">Profil erstellen</string>
@@ -176,23 +176,16 @@
     <string name="ignore">Ignorieren</string>
     <string name="view_changelog">Änderungsprotokoll ansehen</string>
     <string name="i_already_paid">Ich habe bereits bezahlt</string>
-    <string name="memberships">Mitgliedschaften</string>
-    <string name="a_monthly_recurring_payment_with_often">Eine monatlich wiederkehrende Zahlung mit häufig</string>
-    <string name="additional_perks">zusätzlichen Vorteilen.</string>
-    <string name="a_one_time_payment_to_support_the_creator">Eine einmalige Zahlung zur Unterstützung des Erstellers</string>
-    <string name="donation">Spende</string>
     <string name="downloading">Herunterladen</string>
     <string name="videos">Videos</string>
     <string name="clear_history">Verlauf löschen</string>
     <string name="nothing_to_import">Nichts zu importieren</string>
     <string name="enabling_lots_of_sources_can_reduce_the_loading_speed_of_your_application">Das Aktivieren vieler Quellen kann die Ladezeit Ihrer Anwendung verlangsamen.</string>
-    <string name="support">Unterstützung</string>
-    <string name="store">Shop</string>
     <string name="live_chat">Live-Chat</string>
     <string name="remove">Entfernen</string>
     <string name="space_videos">Videos</string>
     <string name="playlist">Wiedergabeliste</string>
-    <string name="neopass_channel">Polycentric Kanal</string>
+    <string name="neopass_channel">Harbor Kanal</string>
     <string name="enable">Aktivieren</string>
     <string name="under_construction">Im Bau</string>
     <string name="under">IM</string>
@@ -233,7 +226,6 @@
     <string name="view_a_more_in_depth_video">Ein ausführlicheres Video ansehen</string>
     <string name="technical_documentation">Technische Dokumentation</string>
     <string name="view_the_technical_documentation">Die technische Dokumentation ansehen</string>
-    <string name="visit_my_store">Meinen Shop besuchen</string>
     <string name="sign_out_of_this_identity">Von dieser Identität abmelden</string>
     <string name="delete_this_profile">Dieses Profil löschen</string>
     <string name="install_by_url">Durch URL installieren</string>
@@ -293,7 +285,7 @@
     <string name="log_level">Log-Level</string>
     <string name="logging">Protokollierung</string>
     <string name="manage_polycentric_identity">Polycentic Identität verwalten</string>
-    <string name="manage_your_polycentric_identity">Ihre Polycentric Identität verwalten</string>
+    <string name="manage_your_polycentric_identity">Ihre Harbor Identität verwalten</string>
     <string name="manual_check">Manuelle Überprüfung</string>
     <string name="manually_check_for_updates">Manuell nach Updates suchen</string>
     <string name="number_of_concurrent_threads_to_multiply_download_speeds_from_throttled_sources">Anzahl der gleichzeitigen Threads zur Multiplikation der Download-Geschwindigkeiten von gedrosselten Quellen</string>
@@ -607,7 +599,6 @@
     <string name="failed_to_retrieve_playlists">Abrufen von Playlisten fehlgeschlagen.</string>
     <string name="subscribed_to">"Abonniert bei "</string>
     <string name="select_your_pins_in_order">Wählen Sie Ihre Pins in Reihenfolge aus</string>
-<string name="a_store_by_the_creator">Ein Shop vom Ersteller</string>
     <string name="add_creator">Ersteller hinzufügen</string>
     <string name="add_to_history">Zum Verlauf hinzufügen</string>
     <string name="add_to_new_playlist">Zu neuer Playlist hinzufügen</string>
@@ -687,7 +678,7 @@
     <string name="cd_image_group">Gruppenbild</string>
     <string name="cd_image_like_icon">Mögen</string>
     <string name="cd_image_loader">Ladeanzeige</string>
-    <string name="cd_image_polycentric">Polycentric-Profilbild ändern</string>
+    <string name="cd_image_polycentric">Harbor-Profilbild ändern</string>
     <string name="cd_incognito_button">Inkognito-Schaltfläche</string>
     <string name="cd_minimize_close">Schließen</string>
     <string name="cd_minimize_pause">Pause</string>
@@ -722,7 +713,6 @@
     <string name="connect_last">Letzte Verbindung versuchen</string>
     <string name="connect_last_description">Gerät erlauben, sich automatisch mit dem zuletzt bekannten zu verbinden</string>
     <string name="create_new_subgroup">Neue Gruppe erstellen</string>
-    <string name="current_promotions_by_this_creator">Aktuelle Werbeaktionen dieses Erstellers</string>
     <string name="default_comment_section">Standard-Kommentarbereich</string>
     <string name="default_recommendations">Empfehlungen als Standard</string>
     <string name="default_recommendations_description">Empfehlungen standardmäßig anstelle von Kommentaren anzeigen.</string>
@@ -732,7 +722,7 @@
     <string name="disable_battery_optimization">Akkuoptimierung deaktivieren</string>
     <string name="do_not_ask_again">Nicht erneut fragen</string>
     <string name="do_you_want_to_see_the_tutorials_you_can_find_them_at_any_time_through_the_more_button">Möchten Sie die Tutorials sehen? Sie können sie jederzeit über die Mehr-Schaltfläche finden.</string>
-    <string name="enable_polycentric">Polycentric aktivieren</string>
+    <string name="enable_polycentric">Harbor aktivieren</string>
     <string name="enabled_description">Funktion aktivieren</string>
     <string name="failed_to_parse_text_file">Fehler beim Parsen der Textdatei</string>
     <string name="failed_to_show_settings">Einstellungen konnten nicht angezeigt werden</string>
@@ -764,7 +754,6 @@
     <string name="login_to_view_your_comments">Melden Sie sich an, um Ihre Kommentare anzuzeigen</string>
     <string name="may_require_restart">Neustart möglicherweise erforderlich</string>
     <string name="membership">Mitgliedschaft</string>
-    <string name="merchandise">Fanartikel</string>
     <string name="networking">Netzwerk</string>
     <string name="new_playlist">Neue Playlist</string>
     <string name="no_sources_installed">Sie haben keine Quellen installiert. Bitte fügen Sie Quellen hinzu, um die App wie vorgesehen zu nutzen.</string>
@@ -784,9 +773,7 @@
     <string name="playlist_delete_confirmation_description">Bestätigungsdialog beim Löschen von Medien aus einer Playlist anzeigen</string>
     <string name="please_use_at_least_1_character">Bitte verwenden Sie mindestens 1 Zeichen</string>
     <string name="plus_tax">" + Steuer"</string>
-    <string name="polycentric_is_disabled">Polycentric ist deaktiviert</string>
-    <string name="polycentric_local_cache">Lokales Caching für Polycentric aktivieren</string>
-    <string name="polycentric_local_cache_description">Speichert Polycentric-Ergebnisse auf dem Gerät zwischen, um Ladezeiten zu verkürzen. Änderung erfordert App-Neustart</string>
+    <string name="polycentric_is_disabled">Harbor ist deaktiviert</string>
     <string name="position">Position</string>
     <string name="prefer_webm">Webm-Video-Codecs bevorzugen</string>
     <string name="prefer_webm_audio">Webm-Audio-Codecs bevorzugen</string>
@@ -801,7 +788,6 @@
     <string name="privacy_mode">Privatsphärenmodus</string>
     <string name="progress_bar">Fortschrittsbalken</string>
     <string name="progress_bar_description">Ob ein historischer Fortschrittsbalken angezeigt werden soll</string>
-    <string name="promotions">Werbeaktionen</string>
     <string name="ratelimit">Ratenbegrenzung</string>
     <string name="ratelimit_description">Einstellungen zur Ratenbegrenzung des Verhaltens dieses Plugins</string>
     <string name="ratelimit_sub_setting">Abonnements ratenbegrenzen</string>
@@ -990,6 +976,7 @@
         <item>Arabisch (AR)</item>
         <item>Italienisch (IT)</item>
         <item>Türkisch (TR)</item>
+        <item>Aserbaidschanisch (AZ)</item>
     </string-array>
     <string-array name="chapter_fps">
         <item>24</item>
@@ -998,7 +985,7 @@
         <item>120</item>
     </string-array>
     <string-array name="comment_sections">
-        <item>Polycentric</item> <item>Plattform</item>
+        <item>Harbor</item> <item>Plattform</item>
         <item>Zuletzt ausgewählt</item>
     </string-array>
     <string-array name="restart_playback_after_loss">
@@ -1037,5 +1024,6 @@
         <item>Portugiesisch</item>
         <item>Chinesisch</item>
         <item>Italienisch</item>
+        <item>Aserbaidschanisch</item>
     </string-array>
 </resources>

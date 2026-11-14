@@ -13,6 +13,7 @@ import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.futo.platformplayer.R
+import com.futo.platformplayer.polycentric.showHarborErrorToast
 import com.futo.platformplayer.Settings
 import com.futo.platformplayer.UIDialogs
 import com.futo.platformplayer.logging.Logger
@@ -29,6 +30,7 @@ import com.futo.platformplayer.states.StatePolycentric
 import com.futo.platformplayer.toHumanNowDiffString
 import com.futo.platformplayer.toHumanNumber
 import com.futo.platformplayer.views.LoaderView
+import com.futo.platformplayer.views.ModerationWarnView
 import com.futo.platformplayer.views.others.CreatorThumbnail
 import com.futo.platformplayer.views.pills.PillButton
 import com.futo.platformplayer.views.pills.PillRatingLikesDislikes
@@ -50,6 +52,10 @@ class CommentViewHolder : ViewHolder {
     private val _pillRatingLikesDislikes: PillRatingLikesDislikes;
     private val _layoutComment: ConstraintLayout;
     private val _buttonDelete: FrameLayout;
+    private val _moderationWarn: ModerationWarnView;
+    // Tapping show on a moderation warning can happen long after [bind] returned, so the [onShow]
+    // handler re-binds with the stored read-only field to restore the comment in the same mode.
+    private var _readonly = false;
 
     private val _containerComments: ConstraintLayout;
     private val _loader: LoaderView;
@@ -75,6 +81,7 @@ class CommentViewHolder : ViewHolder {
         _layoutRating = itemView.findViewById(R.id.layout_rating);
         _pillRatingLikesDislikes = itemView.findViewById(R.id.rating);
         _buttonDelete = itemView.findViewById(R.id.button_delete);
+        _moderationWarn = itemView.findViewById(R.id.moderation_warn);
 
         _containerComments = itemView.findViewById(R.id.comment_container);
         _loader = itemView.findViewById(R.id.loader);
@@ -95,7 +102,7 @@ class CommentViewHolder : ViewHolder {
                     )
                 } catch (e: Throwable) {
                     Logger.w(TAG, "Failed to set comment rating.", e)
-                    UIDialogs.toast(itemView.context, "Failed to set rating: " + e.message)
+                    showHarborErrorToast(itemView.context.getString(R.string.failed_to_set_rating), e)
                 }
             }
         };
@@ -133,10 +140,16 @@ class CommentViewHolder : ViewHolder {
             onDelete.emit(c);
         }
 
+        _moderationWarn.onShow.subscribe {
+            val c = comment ?: return@subscribe;
+            bind(c, _readonly);
+        }
+
         _textBody.setPlatformPlayerLinkMovementMethod(viewGroup.context)
     }
 
     fun bind(comment: IPlatformComment, readonly: Boolean) {
+        _readonly = readonly;
 
         if(comment is LazyComment){
             if(comment.isAvailable)
@@ -166,7 +179,7 @@ class CommentViewHolder : ViewHolder {
 
         _creatorThumbnail.setThumbnail(comment.author.thumbnail, false);
         val polycentricComment = if (comment is PolycentricPlatformComment) comment else null
-        _creatorThumbnail.setHarborAvailable(polycentricComment != null,false, polycentricComment?.eventPointer?.system?.toProto());
+        _creatorThumbnail.setHarborAvailable(polycentricComment != null, false, polycentricComment?.key?.identity);
         _textAuthor.text = comment.author.name;
 
         val date = comment.date;
@@ -235,7 +248,7 @@ class CommentViewHolder : ViewHolder {
         val replies = comment.replyCount ?: 0;
         if (!readonly || replies > 0) {
             _buttonReplies.visibility = View.VISIBLE;
-            _buttonReplies.text.text = "$replies " + itemView.context.getString(R.string.replies);
+            _buttonReplies.text.text = replies.toString();
         } else {
             _buttonReplies.visibility = View.GONE;
         }
@@ -244,6 +257,19 @@ class CommentViewHolder : ViewHolder {
             _buttonDelete.visibility = View.VISIBLE
         } else {
             _buttonDelete.visibility = View.GONE
+        }
+
+        // Comment bodies are hidden until a moderation warning is dismissed
+        if (_moderationWarn.bind(comment)) {
+            _textBody.visibility = View.GONE;
+            _layoutRating.visibility = View.GONE;
+            _pillRatingLikesDislikes.visibility = View.GONE;
+            _buttonCopy.visibility = View.GONE;
+            _buttonReplies.visibility = View.GONE;
+            _buttonDelete.visibility = View.GONE;
+        } else {
+            _textBody.visibility = View.VISIBLE;
+            _buttonCopy.visibility = View.VISIBLE;
         }
 
         this.comment = comment;

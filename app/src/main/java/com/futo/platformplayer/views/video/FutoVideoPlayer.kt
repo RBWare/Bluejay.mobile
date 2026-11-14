@@ -16,10 +16,12 @@ import android.util.Log
 import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import android.widget.FrameLayout
 import android.widget.ImageButton
 import android.widget.TextView
+import androidx.annotation.MainThread
 import androidx.annotation.OptIn
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
@@ -54,6 +56,8 @@ import com.futo.platformplayer.states.StatePlayer
 import com.futo.platformplayer.views.TargetTapLoaderView
 import com.futo.platformplayer.views.behavior.GestureControlView
 import com.futo.platformplayer.views.others.ProgressBar
+import com.futo.platformplayer.views.video.thumbnails.ISeekThumbnailProvider
+import com.futo.platformplayer.views.video.thumbnails.SeekThumbnailLoader
 import com.futo.platformplayer.withMaxSizePx
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -78,6 +82,7 @@ class FutoVideoPlayer : FutoVideoPlayerBase {
     //Views
     private val _root: ConstraintLayout;
     private val _videoView: PlayerView;
+    private val _videoContent: View;
 
     val videoControls: PlayerControlView;
     private val _videoControls_fullscreen: PlayerControlView;
@@ -147,6 +152,8 @@ class FutoVideoPlayer : FutoVideoPlayerBase {
     @UnstableApi
     private var _desiredResizeModePortrait: Int = AspectRatioFrameLayout.RESIZE_MODE_FIT
 
+    private val _seekThumbnails = SeekThumbnailLoader();
+
     //Events
     val onMinimize = Event1<FutoVideoPlayer>();
     val onVideoSettings = Event1<FutoVideoPlayer>();
@@ -172,6 +179,14 @@ class FutoVideoPlayer : FutoVideoPlayerBase {
         LayoutInflater.from(context).inflate(R.layout.video_view, this, true);
         _root = findViewById(R.id.videoview_root);
         _videoView = findViewById(R.id.video_player);
+        _videoContent = _videoView.findViewById(androidx.media3.ui.R.id.exo_content_frame);
+
+        val subtitles = _videoView.subtitleView
+        val subtitleOverlay = _videoView.overlayFrameLayout
+        if (subtitles != null && subtitleOverlay != null) {
+            (subtitles.parent as ViewGroup).removeView(subtitles)
+            subtitleOverlay.addView(subtitles)
+        }
 
         videoControls = findViewById(R.id.video_player_controller);
         _control_fullscreen = videoControls.findViewById(R.id.button_fullscreen);
@@ -210,6 +225,9 @@ class FutoVideoPlayer : FutoVideoPlayerBase {
         _loaderGame = findViewById(R.id.loader_overlay)
         _loaderGame.visibility = View.GONE
         loaderGameVisibilityChanged.emit(false)
+
+        SeekBarTouchDelegate.expandSeekBarTouchArea(_time_bar);
+        SeekBarTouchDelegate.expandSeekBarTouchArea(_time_bar_fullscreen);
 
         _control_chapter.setOnClickListener {
             _currentChapter?.let {
@@ -268,6 +286,9 @@ class FutoVideoPlayer : FutoVideoPlayerBase {
         _time_bar.addListener(scrubListener)
         _time_bar_fullscreen.addListener(scrubListener)
 
+        SeekThumbnailView.attachTo(videoControls, _seekThumbnails) { exoPlayer?.player?.duration ?: 0L };
+        SeekThumbnailView.attachTo(_videoControls_fullscreen, _seekThumbnails) { exoPlayer?.player?.duration ?: 0L };
+
         _overlay_brightness = findViewById(R.id.overlay_brightness);
 
         _title_fullscreen = _videoControls_fullscreen.findViewById(R.id.text_title);
@@ -325,12 +346,12 @@ class FutoVideoPlayer : FutoVideoPlayerBase {
             }
         };
         gestureControl.onPan.subscribe { x, y ->
-            _videoView.translationX = x
-            _videoView.translationY = y
+            _videoContent.translationX = x
+            _videoContent.translationY = y
         }
         gestureControl.onZoom.subscribe {
-            _videoView.scaleX = it
-            _videoView.scaleY = it
+            _videoContent.scaleX = it
+            _videoContent.scaleY = it
         }
 
         gestureControl.setZoomPanEnabled(_videoView.videoSurfaceView!!)
@@ -513,9 +534,12 @@ class FutoVideoPlayer : FutoVideoPlayerBase {
 
     fun getVideoRect(): Rect {
         val r = Rect()
-        // this is the only way i could reliably get a reference to a view that matches perfectly with the video playback
-        _videoView.subtitleView?.getGlobalVisibleRect(r)
+        _videoContent.getGlobalVisibleRect(r)
         return r
+    }
+
+    fun setSeekThumbnailProvider(provider: ISeekThumbnailProvider?) {
+        _seekThumbnails.setProvider(provider);
     }
 
     private fun setSystemBrightness(brightness: Float) {
@@ -672,7 +696,8 @@ class FutoVideoPlayer : FutoVideoPlayerBase {
             //videoControlsBar.visibility = View.GONE;
             _videoView.resizeMode = AspectRatioFrameLayout.RESIZE_MODE_FIT;
 
-            _videoControls_fullscreen.visibility = View.VISIBLE;
+            //_videoControls_fullscreen.visibility = View.VISIBLE;
+            _videoControls_fullscreen.show(); //Known in past to cause double controls, seems fixed with animations disabled..
             videoControls.hideImmediately();
             videoControls.visibility = View.GONE;
         }
@@ -686,7 +711,8 @@ class FutoVideoPlayer : FutoVideoPlayerBase {
             //videoControlsBar.visibility = View.VISIBLE;
             _videoView.resizeMode = _desiredResizeModePortrait;
 
-            videoControls.visibility = View.VISIBLE;
+            //videoControls.visibility = View.VISIBLE;
+            videoControls.show(); //Known in past to cause double controls, seems fixed with animations disabled..
             _videoControls_fullscreen.hideImmediately();
             _videoControls_fullscreen.visibility = View.GONE;
         }

@@ -3,7 +3,6 @@ package com.futo.platformplayer.polycentric
 import com.futo.platformplayer.api.media.models.comments.PolycentricPlatformComment
 import com.futo.platformplayer.api.media.models.ratings.RatingLikeDislikes
 import org.futo.polycentric.core.Collections
-import polycentric.v2.AttributedTo
 import polycentric.v2.AttributedToReaction
 import polycentric.v2.Content
 import polycentric.v2.Delete
@@ -11,28 +10,34 @@ import polycentric.v2.Event
 import polycentric.v2.EventKey
 import polycentric.v2.GetAttributedToReactionCountsRequest
 import polycentric.v2.GetAttributedToReactionCountsResponse
-import polycentric.v2.Link
 import polycentric.v2.Reaction
 
 /**
  * Adapter functions for ratings (known in Harbor/Polycentric as reactions). In Harbor, reactions
- * each are represented in an emoji, but for Grayjay, we only display whether the reaction is
- * positive or negative, ignoring the emoji assigned.
+ * each are represented in an emoji. Grayjay publishes likes and dislikes as Harbor's thumbs up and
+ * thumbs down reactions, but only displays whether a reaction is positive or negative, ignoring
+ * the emoji assigned.
  */
+
+private const val LIKE_EMOJI = "👍"
+private const val DISLIKE_EMOJI = "👎"
+
+private fun ratingEmoji(positive: Boolean) = if (positive) LIKE_EMOJI else DISLIKE_EMOJI
 
 /**
  * Set rating on a video URL. Truthy `positive` sets a like, falsy sets a dislike, and null clears
- * the reaction.
+ * the reaction. [videoTitle] is used as the attribution link's title.
  */
-suspend fun PolycentricAdapter.setVideoRating(videoUrl: String, positive: Boolean?) {
+suspend fun PolycentricAdapter.setVideoRating(videoUrl: String, videoTitle: String?, positive: Boolean?) {
     requireActiveIdentity()
     val url = normalizeUrl(videoUrl)
+    requirePublishableUrl(url)
     for ((key, _) in myVideoReactions(url)) {
         publish(Content(delete = Delete(event_key = key)), Collections.INTERACTIONS)
     }
     if (positive != null) {
         publish(
-            Content(attributed_to_reaction = AttributedToReaction(attributed_to = AttributedTo(link = Link(url = url)), positive = positive)),
+            Content(attributed_to_reaction = AttributedToReaction(attributed_to = attributionLink(url, videoTitle), emoji = ratingEmoji(positive), positive = positive)),
             Collections.INTERACTIONS,
         )
     }
@@ -49,7 +54,7 @@ suspend fun PolycentricAdapter.setCommentRating(comment: PolycentricPlatformComm
     }
     if (positive != null) {
         publish(
-            Content(reaction = Reaction(event_key = comment.key, positive = positive)),
+            Content(reaction = Reaction(event_key = comment.key, emoji = ratingEmoji(positive), positive = positive)),
             Collections.INTERACTIONS,
         )
     }
@@ -74,7 +79,7 @@ fun PolycentricAdapter.myCommentRating(comment: PolycentricPlatformComment): Boo
 suspend fun PolycentricAdapter.getLiveVideoRating(videoUrl: String): RatingLikeDislikes {
     val server = client.servers.firstOrNull() ?: return RatingLikeDislikes(0, 0)
     val request = GetAttributedToReactionCountsRequest(
-        attributed_to = AttributedTo(link = Link(url = normalizeUrl(videoUrl))),
+        attributed_to = attributionLink(normalizeUrl(videoUrl), null),
     )
     val bytes = client.core.getAttributedToReactionCounts(
         server,

@@ -123,7 +123,7 @@
     <string name="export">エクスポート</string>
     <string name="delete">削除</string>
     <string name="loading_update">アップデートを読み込み中…</string>
-    <string name="polycentric_explanation">オンラインビデオを閲覧し、コメントを残したい場合は、Polycentricを試してみてください。新しいオンラインプレゼンスの管理方法で、使いやすく、ユーザーのニーズに焦点を当てています。Polycentricプロフィールを作成する理由は次のとおりです：\n\n 1. コントロール：Polycentricでは、データは単一の企業が管理する1か所に保存されません。代わりに、複数の場所に広がっており、オンラインプレゼンスに対するコントロールが増します。データが保存される場所を自由に選び、プロバイダーを簡単に切り替えたり新たに追加することができます。\n\n 2. プライバシーとセキュリティ：Polycentricは高度なセキュリティ手法を使用して情報を安全に保ちます。個人情報はよく保護されており、共有する相手だけがアクセスできます。\n\n 3. シームレスなネットワーキング：Polycentricを使用すると、単一のプラットフォームに縛られずに他のユーザーと接続し、コンテンツに対話できます。プロバイダーが信頼できなくなったり、アクセスをブロックしようとすると、Polycentricクライアントは自動的に他のソースから情報を見つけます。\n\n 4. スマート検索と推奨：Polycentricは検索と推奨に複数のソースを使用し、優れたパフォーマンスを提供しながら、単一のプロバイダーが結果に対して影響力を持ちすぎないようにします。\n\n 5. 適応性とオープン性：Polycentricは柔軟性があり、新しい開発にオープンです。そのため、ユーザーのニーズに適応した絶えず改善される新機能があります。\n\n 6. Polycentricプロフィールを作成することで、オンラインビデオにコメントを残し、よりパーソナライズされたオンライン体験を楽しむことができます。この使いやすいソリューションがデジタルライフをコントロールする方法を自分で確認してください。今日Polycentricにサインアップ！</string>
+    <string name="polycentric_explanation">オンラインビデオを閲覧し、コメントを残したい場合は、Harborを試してみてください。新しいオンラインプレゼンスの管理方法で、使いやすく、ユーザーのニーズに焦点を当てています。Harborプロフィールを作成する理由は次のとおりです：\n\n 1. コントロール：Harborでは、データは単一の企業が管理する1か所に保存されません。代わりに、複数の場所に広がっており、オンラインプレゼンスに対するコントロールが増します。データが保存される場所を自由に選び、プロバイダーを簡単に切り替えたり新たに追加することができます。\n\n 2. プライバシーとセキュリティ：Harborは高度なセキュリティ手法を使用して情報を安全に保ちます。個人情報はよく保護されており、共有する相手だけがアクセスできます。\n\n 3. シームレスなネットワーキング：Harborを使用すると、単一のプラットフォームに縛られずに他のユーザーと接続し、コンテンツに対話できます。プロバイダーが信頼できなくなったり、アクセスをブロックしようとすると、Harborクライアントは自動的に他のソースから情報を見つけます。\n\n 4. スマート検索と推奨：Harborは検索と推奨に複数のソースを使用し、優れたパフォーマンスを提供しながら、単一のプロバイダーが結果に対して影響力を持ちすぎないようにします。\n\n 5. 適応性とオープン性：Harborは柔軟性があり、新しい開発にオープンです。そのため、ユーザーのニーズに適応した絶えず改善される新機能があります。\n\n 6. Harborプロフィールを作成することで、オンラインビデオにコメントを残し、よりパーソナライズされたオンライン体験を楽しむことができます。この使いやすいソリューションがデジタルライフをコントロールする方法を自分で確認してください。今日Harborにサインアップ！</string>
     <string name="publish">公開</string>
     <string name="usage">使用法</string>
     <string name="enable_in_home">ホームで有効にする</string>
@@ -186,18 +186,11 @@
     <string name="ignore">무시</string>
     <string name="view_changelog">변경 로그 보기</string>
     <string name="i_already_paid">이미 결제했습니다</string>
-    <string name="memberships">멤버십</string>
-    <string name="a_monthly_recurring_payment_with_often">자주 발생하는 월별 결제</string>
-    <string name="additional_perks">추가 혜택</string>
-    <string name="a_one_time_payment_to_support_the_creator">창작자를 지원하기 위한 일회성 결제</string>
-    <string name="donation">기부</string>
     <string name="downloading">다운로드 중</string>
     <string name="videos">비디오</string>
     <string name="clear_history">기록 지우기</string>
     <string name="nothing_to_import">가져올 것이 없습니다</string>
     <string name="enabling_lots_of_sources_can_reduce_the_loading_speed_of_your_application">많은 소스를 활성화하면 앱의 로딩 속도가 느려질 수 있습니다.</string>
-    <string name="support">지원</string>
-    <string name="store">스토어</string>
     <string name="live_chat">실시간 채팅</string>
     <string name="remove">제거</string>
     <string name="space_videos">비디오</string>
@@ -244,7 +237,6 @@
     <string name="view_a_more_in_depth_video">더 자세한 비디오 보기</string>
     <string name="technical_documentation">기술 문서</string>
     <string name="view_the_technical_documentation">기술 문서 보기</string>
-    <string name="visit_my_store">내 스토어 방문하기</string>
     <string name="make_a_backup_of_your_identity">당신의 신원을 백업하세요</string>
     <string name="sign_out_of_this_identity">이 신원에서 로그아웃</string>
     <string name="delete_this_profile">이 프로필 삭제</string>
@@ -719,5 +711,6 @@
         <item>아랍어 (AR)</item>
         <item>이탈리아어 (IT)</item>
         <item>터키어 (TR)</item>
+        <item>아제르바이잔어 (AZ)</item>
     </string-array>
 </resources>

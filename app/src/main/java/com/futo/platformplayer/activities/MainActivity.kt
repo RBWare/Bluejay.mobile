@@ -40,7 +40,9 @@ import com.futo.platformplayer.RootInsetsController
 import com.futo.platformplayer.Settings
 import com.futo.platformplayer.UIDialogs
 import com.futo.platformplayer.api.http.ManagedHttpClient
+import com.futo.platformplayer.api.media.models.video.IPlatformVideoDetails
 import com.futo.platformplayer.api.media.models.video.LocalVideoDetails
+import com.futo.platformplayer.api.media.models.video.PlatformVideoPlaceholder
 import com.futo.platformplayer.casting.StateCasting
 import com.futo.platformplayer.constructs.Event1
 import com.futo.platformplayer.dp
@@ -96,7 +98,10 @@ import com.futo.platformplayer.fragment.mainactivity.topbar.NavigationTopBarFrag
 import com.futo.platformplayer.fragment.mainactivity.topbar.SearchTopBarFragment
 import com.futo.platformplayer.logging.Logger
 import com.futo.platformplayer.models.ImportCache
+import com.futo.platformplayer.models.PlatformVideoWithTime
 import com.futo.platformplayer.models.UrlVideoWithTime
+import com.futo.platformplayer.polycentric.isPairingLink
+import com.futo.platformplayer.polycentric.parsePairingInfo
 import com.futo.platformplayer.setNavigationBarColorAndIcons
 import com.futo.platformplayer.states.StateApp
 import com.futo.platformplayer.states.StateBackup
@@ -112,7 +117,6 @@ import com.futo.platformplayer.stores.SubscriptionStorage
 import com.futo.platformplayer.stores.v2.ManagedStore
 import com.futo.platformplayer.views.ToastView
 import com.futo.platformplayer.views.notification.NotificationOverlayView
-import com.futo.polycentric.core.ApiMethods
 import com.google.gson.JsonParser
 import com.google.zxing.integration.android.IntentIntegrator
 import kotlinx.coroutines.Dispatchers
@@ -132,6 +136,7 @@ import java.lang.reflect.InvocationTargetException
 import java.util.LinkedList
 import java.util.UUID
 import java.util.concurrent.ConcurrentLinkedQueue
+import kotlin.coroutines.cancellation.CancellationException
 
 
 class MainActivity : AppCompatActivity, IWithResultLauncher {
@@ -261,8 +266,6 @@ class MainActivity : AppCompatActivity, IWithResultLauncher {
                     .build()
             )
         }
-
-        ApiMethods.UserAgent = "Grayjay Android (${BuildConfig.VERSION_CODE})";
 
         Thread.setDefaultUncaughtExceptionHandler { _, throwable ->
             val writer = StringWriter();
@@ -771,7 +774,24 @@ class MainActivity : AppCompatActivity, IWithResultLauncher {
 
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent);
+        if (intent.action == Intent.ACTION_MAIN && intent.hasCategory(Intent.CATEGORY_LAUNCHER) && bringPairingToFront()) {
+            return;
+        }
         handleIntent(intent);
+    }
+
+    /**
+     * Brings an open pairing screen back to the front. It runs in its own task, because this
+     * activity is singleInstance. Returns false if no pairing screen is open.
+     */
+    private fun bringPairingToFront(): Boolean {
+        val activity = when {
+            PolycentricPairIssuerActivity.isOpen -> PolycentricPairIssuerActivity::class.java
+            PolycentricPairClaimerActivity.isOpen -> PolycentricPairClaimerActivity::class.java
+            else -> return false
+        };
+        startActivity(Intent(this, activity).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_REORDER_TO_FRONT));
+        return true;
     }
 
     private fun handleIntent(intent: Intent) {
@@ -795,7 +815,10 @@ class MainActivity : AppCompatActivity, IWithResultLauncher {
 
             "VIDEO" -> {
                 val url = intent.getStringExtra("VIDEO");
-                navigateWhenReady(_fragVideoDetail, url);
+                //navigateWhenReady(_fragVideoDetail, url);
+                url?.let {
+                    openExternalVideo(it);
+                }
             }
 
             "IMPORT_OPTIONS" -> {
@@ -848,9 +871,36 @@ class MainActivity : AppCompatActivity, IWithResultLauncher {
         }
     }
 
+    private fun openExternalVideo(url: String, position: Long = 0) {
+        lifecycleScope.launch {
+            lifecycle.withStateAtLeast(Lifecycle.State.RESUMED) {
+                val player = StatePlayer.instance
+                if (player.queueSize > 0) {
+                    val video = player.currentVideo?.takeIf { it.url == url }
+                        ?: PlatformVideoPlaceholder(url, position.coerceAtLeast(0))
+                    player.insertToQueue(video, true)
+                } else if (position > 0) {
+                    navigate(_fragVideoDetail, UrlVideoWithTime(url, position, true))
+                } else {
+                    navigate(_fragVideoDetail, url)
+                }
+                _fragVideoDetail.maximizeVideoDetail(true)
+            }
+        }
+    }
+
     suspend fun handleUrlAll(url: String, openIntent: Intent? = null) {
         val uri = Uri.parse(url)
         val intent = openIntent ?: this.intent;
+
+        // Harbor pairing links (https://harbor.social/login/pair?code=...), e.g. from the QR scanner.
+        if (uri.scheme == "https" && isPairingLink(url) && parsePairingInfo(url) != null) {
+            startActivity(Intent(this, PolycentricPairClaimerActivity::class.java).apply {
+                putExtra(PolycentricPairClaimerActivity.EXTRA_LINK, url);
+            });
+            return;
+        }
+
         when (uri.scheme) {
             "grayjay" -> {
                 if (url.startsWith("grayjay://license/")) {
@@ -869,7 +919,8 @@ class MainActivity : AppCompatActivity, IWithResultLauncher {
                     startActivity(intent);
                 } else if (url.startsWith("grayjay://video/")) {
                     val videoUrl = url.substring("grayjay://video/".length);
-                    navigateWhenReady(_fragVideoDetail, videoUrl);
+                    openExternalVideo(videoUrl);
+                    //navigateWhenReady(_fragVideoDetail, videoUrl);
                 } else if (url.startsWith("grayjay://channel/")) {
                     val channelUrl = url.substring("grayjay://channel/".length);
                     navigateWhenReady(_fragMainChannel, channelUrl);
@@ -893,17 +944,6 @@ class MainActivity : AppCompatActivity, IWithResultLauncher {
                         this,
                         R.drawable.ic_play,
                         getString(R.string.unknown_file_format) + " [${url}]",
-                        "Ok",
-                        { });
-                }
-            }
-
-            "polycentric" -> {
-                if (!handlePolycentric(url)) {
-                    UIDialogs.showSingleButtonDialog(
-                        this,
-                        R.drawable.ic_play,
-                        getString(R.string.unknown_polycentric_format) + " [${url}]",
                         "Ok",
                         { });
                 }
@@ -941,12 +981,7 @@ class MainActivity : AppCompatActivity, IWithResultLauncher {
             if (StatePlatform.instance.hasEnabledContentClient(url)) {
                 Logger.i(TAG, "handleUrl(url=$url) found video client");
                 withContext(Dispatchers.Main) {
-                    if (position > 0)
-                        navigateWhenReady(_fragVideoDetail, UrlVideoWithTime(url, position.toLong(), true));
-                    else
-                        navigateWhenReady(_fragVideoDetail, url);
-
-                    _fragVideoDetail.maximizeVideoDetail(true);
+                    openExternalVideo(url, if(position > 0) position.toLong() else 0);
                 }
                 return@withContext true;
             } else if (StatePlatform.instance.hasEnabledChannelClient(url)) {
@@ -1111,12 +1146,6 @@ class MainActivity : AppCompatActivity, IWithResultLauncher {
         return true;
     }
 
-
-    fun handlePolycentric(url: String): Boolean {
-        Logger.i(TAG, "handlePolycentric");
-        startActivity(Intent(this, PolycentricImportProfileActivity::class.java).apply { putExtra("url", url) })
-        return true;
-    }
 
     fun handleFCast(url: String): Boolean {
         Logger.i(TAG, "handleFCast");
@@ -1504,7 +1533,9 @@ class MainActivity : AppCompatActivity, IWithResultLauncher {
                     _toastView.setToastAnimated(toast);
                 }
             }
-            if (toast.long)
+            if (toast.isError)
+                delay(10000);
+            else if (toast.long)
                 delay(5000);
             else
                 delay(2500);

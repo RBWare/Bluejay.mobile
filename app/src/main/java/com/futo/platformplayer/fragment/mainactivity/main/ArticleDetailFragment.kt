@@ -25,10 +25,10 @@ import androidx.core.view.setPadding
 import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
 import com.futo.platformplayer.R
+import com.futo.platformplayer.polycentric.showHarborErrorToast
 import com.futo.platformplayer.Settings
 import com.futo.platformplayer.UIDialogs
 import com.futo.platformplayer.UISlideOverlays
-import com.futo.platformplayer.api.media.PlatformID
 import com.futo.platformplayer.api.media.models.Thumbnails
 import com.futo.platformplayer.api.media.models.article.IPlatformArticle
 import com.futo.platformplayer.api.media.models.article.IPlatformArticleDetails
@@ -76,8 +76,6 @@ import com.futo.platformplayer.views.pills.PillRatingLikesDislikes
 import com.futo.platformplayer.views.platform.PlatformIndicator
 import com.futo.platformplayer.views.segments.CommentsList
 import com.futo.platformplayer.views.subscriptions.SubscribeButton
-import com.futo.polycentric.core.ApiMethods
-import com.futo.polycentric.core.PolycentricProfile
 import com.google.android.flexbox.FlexboxLayout
 import com.google.android.material.imageview.ShapeableImageView
 import com.google.android.material.shape.CornerFamily
@@ -86,6 +84,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.lang.Integer.min
+import com.futo.platformplayer.polycentric.toAttributedContent
 
 class ArticleDetailFragment : MainFragment {
     override val isMainView: Boolean = true;
@@ -130,7 +129,6 @@ class ArticleDetailFragment : MainFragment {
         private var _isLoading = false;
         private var _article: IPlatformArticleDetails? = null;
         private var _articleOverview: IPlatformArticle? = null;
-        private var _polycentricProfile: PolycentricProfile? = null;
         private var _version = 0;
         private var _isRepliesVisible: Boolean = false;
         private var _repliesAnimator: ViewPropertyAnimator? = null;
@@ -181,17 +179,6 @@ class ArticleDetailFragment : MainFragment {
                 Logger.w(ChannelFragment.TAG, context.getString(R.string.failed_to_load_post), it);
                 UIDialogs.showGeneralRetryErrorDialog(context, context.getString(R.string.failed_to_load_post), it, ::fetchPost, null, _fragment);
             } else TaskHandler(IPlatformPostDetails::class.java) { _fragment.lifecycleScope };
-
-        private val _taskLoadPolycentricProfile = TaskHandler<PlatformID, PolycentricProfile?>(StateApp.instance.scopeGetter, {
-            if (!StatePolycentric.instance.enabled)
-                return@TaskHandler null
-
-            ApiMethods.getPolycentricProfileByClaim(ApiMethods.SERVER, ApiMethods.FUTO_TRUST_ROOT, it.claimFieldType.toLong(), it.claimType.toLong(), it.value!!)
-        })
-            .success { it -> setPolycentricProfile(it, animate = true) }
-            .exception<Throwable> {
-                Logger.w(TAG, "Failed to load claims.", it);
-            };
 
         constructor(context: Context) : super(context) {
             inflate(context, R.layout.fragview_article_detail, this);
@@ -351,10 +338,12 @@ class ArticleDetailFragment : MainFragment {
                                 try {
                                     StatePolycentric.instance.setVideoRating(
                                         url,
+                                        _article?.name ?: _articleOverview?.name,
                                         if (args.hasLiked) true else if (args.hasDisliked) false else null,
                                     )
                                 } catch (e: Throwable) {
                                     Logger.w(TAG, "Failed to set video rating.", e)
+                                    showHarborErrorToast(context.getString(R.string.failed_to_set_rating), e)
                                 }
                             }
                         };
@@ -409,7 +398,6 @@ class ArticleDetailFragment : MainFragment {
         fun clear() {
             _commentsList.cancel();
             _taskLoadPost.cancel();
-            _taskLoadPolycentricProfile.cancel();
             _version++;
 
             updateCommentType(null)
@@ -423,7 +411,6 @@ class ArticleDetailFragment : MainFragment {
             _textTitle.text = "";
             _textMeta.text = "";
             setPlatformRating(null);
-            _polycentricProfile = null;
             _rating.visibility = View.GONE;
             updatePolycentricRating();
             setRepliesOverlayVisible(isVisible = false, animate = false);
@@ -480,9 +467,8 @@ class ArticleDetailFragment : MainFragment {
 
             //Fetch only when not already called in setPostOverview
             if (_articleOverview == null) {
-                fetchPolycentricProfile();
                 updatePolycentricRating();
-                _addCommentView.setContext(value.url, null);
+                _addCommentView.setContext(value.url, null, value.toAttributedContent());
             }
 
             val commentType = !Settings.instance.other.polycentricEnabled || Settings.instance.comments.defaultCommentSection == 1
@@ -503,10 +489,9 @@ class ArticleDetailFragment : MainFragment {
             _textMeta.text = value.datetime?.toHumanNowDiffString()?.let { "$it ago" } ?: "" //TODO: Include view count?
 
             _platformIndicator.setPlatformFromClientID(value.id.pluginId);
-            _addCommentView.setContext(value.url, null);
+            _addCommentView.setContext(value.url, null, value.toAttributedContent());
 
             updatePolycentricRating();
-            fetchPolycentricProfile();
             fetchPost();
         }
 
@@ -550,12 +535,6 @@ class ArticleDetailFragment : MainFragment {
             }
         }
 
-        private fun fetchPolycentricProfile() {
-            val author = _article?.author ?: _articleOverview?.author ?: return;
-                setPolycentricProfile(null, animate = false);
-                _taskLoadPolycentricProfile.run(author.id);
-        }
-
         private fun setChannelMeta(value: IPlatformArticle?) {
             val subscribers = value?.author?.subscribers;
             if(subscribers != null && subscribers > 0) {
@@ -577,18 +556,6 @@ class ArticleDetailFragment : MainFragment {
             _commentsList.cancel();
             _taskLoadPost.cancel();
             _repliesOverlay.cleanup();
-        }
-
-        private fun setPolycentricProfile(polycentricProfile: PolycentricProfile?, animate: Boolean) {
-            _polycentricProfile = polycentricProfile;
-
-            val pp = _polycentricProfile;
-            if (pp == null) {
-                _creatorThumbnail.setHarborAvailable(false, animate, null);
-                return;
-            }
-
-            _creatorThumbnail.setHarborAvailable(true, animate, pp.system.toProto());
         }
 
         private fun fetchPost() {

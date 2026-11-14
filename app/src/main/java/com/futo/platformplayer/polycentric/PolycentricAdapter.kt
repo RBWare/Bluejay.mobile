@@ -1,6 +1,7 @@
 package com.futo.platformplayer.polycentric
 
 import com.futo.platformplayer.BuildConfig
+import com.futo.platformplayer.UIDialogs
 import com.futo.platformplayer.states.StateApp
 import org.futo.polycentric.core.AndroidFileStoreDriver
 import org.futo.polycentric.core.Collections
@@ -8,6 +9,7 @@ import org.futo.polycentric.core.PolycentricClient
 import org.futo.polycentric.core.SqliteStorageDriver
 import org.futo.polycentric.core.SyncStrategy
 import org.futo.polycentric.ffi.PolycentricCore
+import org.futo.polycentric.ffi.validateContent
 import polycentric.v2.Application
 import polycentric.v2.Content
 import polycentric.v2.Event
@@ -34,21 +36,24 @@ class PolycentricAdapter(internal val client: PolycentricClient) {
     /** Whether [initialize] has finished and the keypair is set. */
     val isReady: Boolean get() = client.isReady
 
-    /** Suspends until [initialize] completes; throws if it failed. */
-    suspend fun awaitReady() = client.awaitReady()
-
     /**
      * The active identity key, or an [IllegalStateException] when nobody is
      * logged in. Called at the head of every write path.
      */
     internal fun requireActiveIdentity(): String =
         client.activeIdentityKey
-            ?: throw IllegalStateException("Not logged in to Polycentric")
+            ?: throw IllegalStateException("Not logged in to Harbor")
 
     /**
-     * Build, sign, commit locally, and push one event.
+     * Build, sign, commit locally, and push one event. The event stays in local storage whether
+     * the push succeeds or not. Throws if content fails the Polycentric SDK's validation.
+     *
+     * TODO: when polycentric-core throws publish errors for us to catch, we should catch them and
+     * display the error.
      */
     internal suspend fun publish(content: Content, collection: Int): EventKey {
+        val errors = validateContent(Content.ADAPTER.encode(content))
+        require(errors.isEmpty()) { "Invalid content: ${errors.joinToString()}" }
         val event = client.buildEvent(content, collection)
         val signed = client.signEvent(event)
         client.commitEvent(signed, content)
@@ -99,9 +104,12 @@ class PolycentricAdapter(internal val client: PolycentricClient) {
     companion object {
 
         /**
-         * TODO: make the seed server list configurable, rather than hard-coded.
+         * The initial servers of new identities.
          */
-        val SEED_SERVERS: List<String> = listOf("https://srv.staging.harbor.social")
+        val SEED_SERVERS: List<String> = listOf(
+            "https://srv.harbor.social",
+            "https://srv.polycentric.io",
+        )
 
         /**
          * Base URL of the Harbor web app, used to build the outbound links
@@ -109,7 +117,14 @@ class PolycentricAdapter(internal val client: PolycentricClient) {
          *
          * TODO: make this configurable alongside the seed server list.
          */
-        const val WEB_BASE_URL: String = "https://staging.harbor.social"
+        const val WEB_BASE_URL: String = "https://harbor.social"
+
+        /**
+         * Base URL of Harbor's `grayjay-migrator` lookup service, which maps legacy v1 system
+         * keys to their migrated v2 identities. The v1 identity migration is skipped while unset.
+         * Migrated identities live on [SEED_SERVERS] (the migrator's `IDENTITY_SERVERS`).
+         */
+        val MIGRATOR_URL: String = "https://grayjay-migrator.harbor.social"
 
         /**
          * Construct a Harbor client using the Kotlin SDK, using Grayjay's
@@ -133,4 +148,22 @@ class PolycentricAdapter(internal val client: PolycentricClient) {
             )
         }
     }
+}
+
+/**
+ * A short, user-facing description of why a Harbor write failed, suitable for appending to a
+ * "Failed to ..." toast.
+ */
+fun Throwable.toHarborErrorMessage(): String = when (this) {
+    is IllegalStateException, is IllegalArgumentException -> message ?: "Harbor is unavailable"
+    else -> "Could not reach Harbor" + (message?.let { " ($it)" } ?: "")
+}
+
+/**
+ * Shows "[prefix] [toHarborErrorMessage]" as a toast, with a button that copies the full error
+ * (including causes and stack trace) for bug reports.
+ */
+fun showHarborErrorToast(prefix: String, e: Throwable) {
+    val details = "Bluejay ${BuildConfig.VERSION_NAME}\n$prefix\n\n${e.stackTraceToString()}"
+    UIDialogs.appToastWithDetails(prefix + " " + e.toHarborErrorMessage(), details)
 }
