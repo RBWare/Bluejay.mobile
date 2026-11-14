@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 108 108" width="108" height="108">
+ <g transform="translate(54 54) scale(0.74) translate(-51.5 -55)">
+  <!-- tail -->
+  <path d="M41,65 L22,88 Q25,91.5 29.5,89.5 L49,71 Z" fill="#2F6FD6"/>
+  <path d="M28,80 L31.5,83 M25.3,83.4 L28.8,86.4" stroke="#10213F" stroke-width="1.6" stroke-linecap="round"/>
+  <path d="M22,88 Q25,91.5 29.5,89.5 L27.2,87.2 Z" fill="#FFFFFF"/>
+  <!-- crest + head + back -->
+  <path d="M68,33 C66,28 62,25 57,23.5 C54,22.5 50,21.5 46.5,21.8 C49,23 50.5,24.2 51.5,25.6
+           C49.5,25.4 47.5,25.8 46,26.6 C48.5,27.4 50.5,28.6 52,30.5
+           C48,33 46,39 46,45 C40,50 36,58 38,66 C40,74 50,78 58,76 C68,74 74,64 72,52
+           C72,44 71,37 68,33 Z" fill="#3B86F0"/>
+  <!-- white belly / throat -->
+  <path d="M71,42 C76,52 74,66 64,74 C58,78 52,77 50,74 C58,70 64,60 64,48 Z" fill="#FFFFFF"/>
+  <!-- white face -->
+  <path d="M62,34.5 C68,33.5 74,37.5 74.5,43.5 C72,48 65,48.5 61.5,45 C59.5,41.5 59.5,37 62,34.5 Z" fill="#FFFFFF"/>
+  <!-- black necklace, rising behind the cheek -->
+  <path d="M59.5,37 C59,43 64,49.5 74.5,46.5 L74.8,49.6 C66,54.5 57.5,49 57.3,40.5 Z" fill="#10213F"/>
+  <!-- eye line + eye -->
+  <path d="M64.5,37 L73.5,39.2" stroke="#10213F" stroke-width="1.5" stroke-linecap="round"/>
+  <circle cx="67.6" cy="37.7" r="2" fill="#10213F"/>
+  <circle cx="68.2" cy="37.2" r="0.6" fill="#FFFFFF"/>
+  <!-- beak -->
+  <path d="M73.2,38 L82,40.6 L73.2,42.8 Z" fill="#10213F"/>
+  <!-- wing -->
+  <path d="M49,46 C56,48 60,56 58,64 C56,70 48,74 40,72 C42,62 44,52 49,46 Z" fill="#2F6FD6"/>
+  <path d="M46,56 L57,57 M44,62 L57.5,63.5 M42,68 L54,69.5" stroke="#10213F" stroke-width="1.4" stroke-linecap="round"/>
+  <path d="M41,70 C46,73 52,72 56,68 L55,71 C50,75 44,75 40,72 Z" fill="#FFFFFF"/>
+ </g>
+</svg>

@@ -1,16 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Bluejay themed (monochrome) launcher icon -->
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
     android:width="108dp"
     android:height="108dp"
     android:viewportWidth="108"
     android:viewportHeight="108">
-  <path
-      android:pathData="m54,75 l25,-38h-50z"
-      android:strokeWidth=".83"
-      android:fillColor="#00000000"
-      android:strokeColor="#000"
-      android:strokeLineCap="round"/>
-  <path
-      android:fillColor="#FF000000"
-      android:pathData="m34,64c1,-1.1 3.6,-3.7 5.7,-5 2,-1.3 4.4,-5 5.4,-6.6 2.9,-4.3 9.4,-13 12,-15 0.5,-0.39 1.2,-1 1.5,-1.3 1,-2.3 4.6,-6.3 10,-3.5 0.5,-0.17 1.7,-0.21 2.3,-0.21 -0.44,0.3 -1.4,1.2 -1.5,2.3 -0.45,3.1 -2.1,4.9 -2.9,5.4 -0.56,3.6 -1.3,6.7 -3,7.8l1.5,2.7c2.3,2.4 7.1,7.7 7.8,9.3 -2.2,-0.73 -3.7,-1.4 -4.1,-1.7l4.1,5.7c-2.4,-0.19 -7.9,-1.8 -10,-6.6 0.95,2.6 1.9,5.8 2.2,7.1 -1.3,-1.1 -4.1,-4.2 -4.9,-8 0.22,3.7 0.19,6.4 0.14,7.3 -0.63,-0.58 -2.1,-2.4 -2.9,-5v4.3c-0.94,-1.3 -2.8,-4.5 -3,-6.9 0.16,2.7 0.06,4 -0.01,4.3l-3.6,-3.4c-0.95,0.51 -3.5,1.7 -6.1,2.2 -1.8,1.5 -4,5.3 -4.8,7v-2.2l-2.4,2.4 0.84,-2.5 -1.5,1.3c-0.35,0.21 -1.2,0.63 -1.6,0.63 0.17,-0.39 0.49,-0.82 0.63,-0.98l-2,0.77c0.23,-0.68 0.96,-2.2 2,-2.7 -1.5,0.56 -2,0.7 -2.2,0.7z"
-      android:strokeWidth=".2"/>
+  <group
+      android:scaleX="0.74"
+      android:scaleY="0.74"
+      android:translateX="15.89"
+      android:translateY="13.30">
+    <path
+        android:fillColor="#FF000000"
+        android:pathData="M41,65 L22,88 Q25,91.5 29.5,89.5 L49,71 Z"/>
+    <path
+        android:fillColor="#FF000000" android:fillType="evenOdd"
+        android:pathData="M68,33 C66,28 62,25 57,23.5 C54,22.5 50,21.5 46.5,21.8 C49,23 50.5,24.2 51.5,25.6 C49.5,25.4 47.5,25.8 46,26.6 C48.5,27.4 50.5,28.6 52,30.5 C48,33 46,39 46,45 C40,50 36,58 38,66 C40,74 50,78 58,76 C68,74 74,64 72,52 C72,44 71,37 68,33 Z M65.6,37.7 a2,2 0 1,0 4,0 a2,2 0 1,0 -4,0 Z"/>
+    <path
+        android:fillColor="#FF000000"
+        android:pathData="M71,42 C76,52 74,66 64,74 C58,78 52,77 50,74 C58,70 64,60 64,48 Z"/>
+    <path
+        android:fillColor="#FF000000"
+        android:pathData="M70,37.4 L82,40.6 L70,43.6 C72.5,46 74,46 74.5,44 Z"/>
+  </group>
 </vector>
