@@ -34,6 +34,7 @@ import com.futo.platformplayer.logging.Logger
 import com.futo.platformplayer.states.StateApp
 import com.futo.platformplayer.states.StatePayment
 import com.futo.platformplayer.states.StateSubscriptions
+import com.futo.platformplayer.tv.install.TvDevicesActivity
 import com.futo.platformplayer.views.AnyAdapterView
 import com.futo.platformplayer.views.AnyAdapterView.Companion.asAny
 import com.futo.platformplayer.views.adapters.AnyAdapter
@@ -622,6 +623,9 @@ class MenuBottomBarFragment : MainActivityFragment() {
             ButtonDefinition(11, R.drawable.ic_smart_display, R.drawable.ic_smart_display_filled, R.string.shorts, { it.currentMain is ShortsFragment && !(it.currentMain as ShortsFragment).isChannelShortsMode }, { it.navigateTab<ShortsFragment>() }),
             ButtonDefinition(5, R.drawable.ic_history, R.drawable.ic_history, R.string.history, { it.currentMain is HistoryFragment }, { it.navigateTab<HistoryFragment>() }),
             ButtonDefinition(6, R.drawable.ic_download, R.drawable.ic_download, R.string.downloads, { it.currentMain is DownloadsFragment }, { it.navigateTab<DownloadsFragment>() }),
+            ButtonDefinition(14, R.drawable.ic_live_tv, R.drawable.ic_live_tv, R.string.tv_install_menu, { false }, {
+                it.startActivity(Intent(it.requireContext(), TvDevicesActivity::class.java))
+            }),
             ButtonDefinition(8, R.drawable.ic_chat, R.drawable.ic_chat_filled, R.string.comments, { it.currentMain is CommentsFragment }, { it.navigateTab<CommentsFragment>() }),
             ButtonDefinition(9, R.drawable.ic_subscriptions, R.drawable.ic_subscriptions_filled, R.string.subscription_group_menu, { it.currentMain is SubscriptionGroupListFragment }, { it.navigateTab<SubscriptionGroupListFragment>() }),
             ButtonDefinition(10, R.drawable.ic_help_square, R.drawable.ic_help_square_fill, R.string.tutorials, { it.currentMain is TutorialFragment }, { it.navigateTab<TutorialFragment>() }),
