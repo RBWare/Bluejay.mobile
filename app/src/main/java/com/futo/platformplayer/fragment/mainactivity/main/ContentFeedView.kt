@@ -23,6 +23,7 @@ import com.futo.platformplayer.api.media.structures.IPager
 import com.futo.platformplayer.fragment.mainactivity.main.ShortView.Companion
 import com.futo.platformplayer.logging.Logger
 import com.futo.platformplayer.states.StateMeta
+import com.futo.platformplayer.states.AutoplaySection
 import com.futo.platformplayer.states.StatePlayer
 import com.futo.platformplayer.states.StatePlaylists
 import com.futo.platformplayer.video.PlayerManager
@@ -191,11 +192,15 @@ abstract class ContentFeedView<TFragment> : FeedView<TFragment, IPlatformContent
             playPreview();
     }
 
+    //Bluejay: which per-section autoplay setting applies to videos opened from this feed
+    protected open val autoplaySection: AutoplaySection = AutoplaySection.OTHER
+
     protected open fun onContentClicked(content: IPlatformContent, time: Long) {
         if(content is IPlatformVideo) {
             if (StatePlayer.instance.hasQueue) {
                 StatePlayer.instance.insertToQueue(content, true);
             } else {
+                StatePlayer.instance.setAutoplaySource(recyclerData.results, autoplaySection)
                 if (Settings.instance.playback.shouldResumePreview(time))
                     fragment.navigate<VideoDetailFragment>(content.withTimestamp(time)).maximizeVideoDetail();
                 else

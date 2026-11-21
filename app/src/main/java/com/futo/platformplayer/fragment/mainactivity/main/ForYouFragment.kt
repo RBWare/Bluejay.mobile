@@ -87,6 +87,7 @@ class ForYouFragment : MainFragment() {
 
     @SuppressLint("ViewConstructor")
     class ForYouView : ContentFeedView<ForYouFragment> {
+        override val autoplaySection = com.futo.platformplayer.states.AutoplaySection.FOR_YOU; //Bluejay
         override val shouldShowTimeBar: Boolean get() = Settings.instance.subscriptions.progressBar
         override val feedStyle: FeedStyle get() = Settings.instance.subscriptions.getSubscriptionsFeedStyle();
 

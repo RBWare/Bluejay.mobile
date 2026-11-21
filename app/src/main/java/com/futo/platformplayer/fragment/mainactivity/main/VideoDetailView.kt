@@ -274,6 +274,17 @@ class VideoDetailView : ConstraintLayout {
     private val _textSkip: TextView;
     private val _textResume: TextView;
     private val _layoutResume: LinearLayout;
+
+    //Bluejay: autoplay up-next card (countdown over the player near the end of a video)
+    private val _layoutUpNext: LinearLayout;
+    private val _textUpNextCountdown: TextView;
+    private val _imageUpNextThumbnail: ImageView;
+    private val _textUpNextTitle: TextView;
+    private val _textUpNextAuthor: TextView;
+    private var _upNextVideo: IPlatformVideo? = null;
+    private var _upNextCancelled = false;
+    private var _upNextForUrl: String? = null;
+    private var _autoplayRecommendations: List<IPlatformVideo>? = null;
     private val _layoutPlayerContainer: TouchInterceptFrameLayout;
     private val _layoutChangeBottomSection: LinearLayout;
 
@@ -425,6 +436,17 @@ class VideoDetailView : ConstraintLayout {
         _textSkip = findViewById(R.id.text_skip);
         _layoutResume = findViewById(R.id.layout_resume);
         _textResume = findViewById(R.id.text_resume);
+        _layoutUpNext = findViewById(R.id.layout_up_next);
+        _textUpNextCountdown = findViewById(R.id.text_up_next_countdown);
+        _imageUpNextThumbnail = findViewById(R.id.image_up_next_thumbnail);
+        _textUpNextTitle = findViewById(R.id.text_up_next_title);
+        _textUpNextAuthor = findViewById(R.id.text_up_next_author);
+        findViewById<View>(R.id.button_up_next_cancel).setOnClickListener {
+            _upNextCancelled = true;
+            hideUpNext();
+        };
+        findViewById<View>(R.id.button_up_next_play).setOnClickListener { playUpNext() };
+        findViewById<View>(R.id.layout_up_next_video).setOnClickListener { playUpNext() };
         _layoutPlayerContainer = findViewById(R.id.layout_player_container);
         _layoutPlayerContainer.onClick.subscribe { onMaximize.emit(false); };
 
@@ -655,7 +677,7 @@ class VideoDetailView : ConstraintLayout {
                 searchVideo?.let { StatePlaylists.instance.removeFromWatchLater(it) };
             }
 
-            nextVideo();
+            nextVideo(allowAutoplay = !_upNextCancelled);
         };
         _player.onDatasourceError.subscribe(::onDataSourceError);
         _player.onNext.subscribe { nextVideo(true, true, true) };
@@ -733,7 +755,7 @@ class VideoDetailView : ConstraintLayout {
                 val activeDevice = StateCasting.instance.activeDevice;
                 if (activeDevice != null) {
                     Log.i(TAG, "Next video (loop?)")
-                    nextVideo();
+                    nextVideo(allowAutoplay = !_upNextCancelled);
                 }
             }
 
@@ -1358,6 +1380,8 @@ class VideoDetailView : ConstraintLayout {
         cleanupPlaybackTracker();
         _searchVideo = video;
         _autoplayVideo = null
+        _autoplayRecommendations = null
+        hideUpNext()
         Logger.i(TAG, "Autoplay video cleared (setVideoOverview)")
         _videoResumePositionMilliseconds = (if (video is PlatformVideoPlaceholder)
             video.resumeSeconds
@@ -1444,6 +1468,7 @@ class VideoDetailView : ConstraintLayout {
     fun setVideoDetails(videoDetail: IPlatformVideoDetails, newVideo: Boolean = false) {
         Logger.i(TAG, "setVideoDetails (${videoDetail.name})")
         _autoplayVideo = null
+        _autoplayRecommendations = null
         Logger.i(TAG, "Autoplay video cleared (setVideoDetails)")
 
         if (newVideo && this.video?.url == videoDetail.url)
@@ -2407,19 +2432,21 @@ class VideoDetailView : ConstraintLayout {
         }
     }
 
-    fun nextVideo(forceLoop: Boolean = false, withoutRemoval: Boolean = false, bypassVideoLoop: Boolean = false): Boolean {
+    fun nextVideo(forceLoop: Boolean = false, withoutRemoval: Boolean = false, bypassVideoLoop: Boolean = false, allowAutoplay: Boolean = true): Boolean {
         Logger.i(TAG, "nextVideo")
         checkAndRemoveWatchLater();
 
         var next = StatePlayer.instance.nextQueueItem(withoutRemoval || _player.duration < 100 || (_player.position.toFloat() / _player.duration) < 0.9, bypassVideoLoop);
         Log.i(TAG, "next queue item ${next?.url} (${next?.name})")
 
-        val autoplayVideo = _autoplayVideo
-        if (next == null && autoplayVideo != null && StatePlayer.instance.autoplay) {
+        //Bluejay: autoplay what the up-next card showed (next video of the feed it was opened from, else a recommendation)
+        val autoplayVideo = if (next == null && allowAutoplay && StatePlayer.instance.autoplay) (_upNextVideo ?: findUpNext()) else null
+        if (autoplayVideo != null) {
             Logger.i(TAG, "Found autoplay video!")
             StatePlayer.instance.setAutoplayed(autoplayVideo.url)
             next = autoplayVideo
         }
+        hideUpNext()
         _autoplayVideo = null
         Logger.i(TAG, "Autoplay video cleared (nextVideo)");
 
@@ -3188,6 +3215,7 @@ class VideoDetailView : ConstraintLayout {
     private fun setRecommendations(results: List<IPlatformVideo>?, message: String? = null) {
         if (results != null && StatePlayer.instance.autoplay) {
             _autoplayVideo = results.firstOrNull { !StatePlayer.instance.wasAutoplayed(it.url) }
+            _autoplayRecommendations = results
             Logger.i(TAG, "Autoplay video set (url = ${_autoplayVideo?.url})")
         }
 
@@ -3252,6 +3280,7 @@ class VideoDetailView : ConstraintLayout {
         onEnterPictureInPicture.emit();
         _player.hideControls(false);
         _layoutResume.visibility = View.GONE;
+        hideUpNext();
     }
     fun handleEnterPictureInPicture() {
         Logger.i(TAG, "handleEnterPictureInPicture");
@@ -3360,6 +3389,86 @@ class VideoDetailView : ConstraintLayout {
         }
 
         updateResumeVisibilityFor(positionMilliseconds)
+        updateUpNext(positionMilliseconds)
+    }
+
+    //Bluejay: autoplay up-next card, ported from the desktop client. In the last UP_NEXT_COUNTDOWN_SECONDS of a video,
+    //show what plays next (the next unwatched video of the feed it was opened from, otherwise the first recommendation)
+    //with Cancel / Play now; it plays when the video ends unless cancelled. Uses the existing autoplay toggle.
+    private fun isAutoplayCandidate(v: IPlatformContent?, currentUrl: String): Boolean {
+        if (v !is IPlatformVideo || v.isLive || v.url == currentUrl || StatePlayer.instance.wasAutoplayed(v.url))
+            return false;
+        return !(v.duration > 0 && StateHistory.instance.isHistoryWatched(v.url, v.duration));
+    }
+
+    private fun findUpNext(): IPlatformVideo? {
+        val current = video ?: return null;
+        val url = current.url;
+        val (section, feed) = StatePlayer.instance.getAutoplaySource(url);
+        if (!Settings.instance.playback.autoplaySections.isEnabled(section))
+            return null;
+        if (feed != null) {
+            val index = feed.indexOfFirst { it.url == url };
+            if (index >= 0) {
+                val fromFeed = feed.drop(index + 1).firstOrNull { isAutoplayCandidate(it, url) };
+                if (fromFeed != null)
+                    return fromFeed as IPlatformVideo;
+            }
+        }
+        return _autoplayRecommendations?.firstOrNull { isAutoplayCandidate(it, url) };
+    }
+
+    private fun updateUpNext(positionMs: Long) {
+        val current = video;
+        if (current?.url != _upNextForUrl) {
+            _upNextForUrl = current?.url;
+            _upNextCancelled = false;
+            _upNextVideo = null;
+        }
+
+        val durationMs = if (!_isCasting && _player.duration > 0) _player.duration else (current?.duration ?: 0L) * 1000L;
+        val remainingMs = durationMs - positionMs;
+        val inCountdown = current != null && !current.isLive && durationMs > 0 && positionMs > 0
+                && remainingMs <= UP_NEXT_COUNTDOWN_SECONDS * 1000L;
+        if (!inCountdown) {
+            _upNextVideo = null;
+            hideUpNext();
+            return;
+        }
+        if (_upNextCancelled || !StatePlayer.instance.autoplay || StatePlayer.instance.loopVideo
+            || StatePlayer.instance.getNextQueueItem() != null //An explicit queue continues on its own
+            || fragment.state == VideoDetailFragment.State.MINIMIZED || fragment.isInPictureInPicture) {
+            hideUpNext();
+            return;
+        }
+
+        var next = _upNextVideo;
+        if (next == null) {
+            next = findUpNext() ?: return hideUpNext();
+            _upNextVideo = next;
+            _textUpNextTitle.text = next.name;
+            _textUpNextAuthor.text = next.author.name;
+            Glide.with(_imageUpNextThumbnail)
+                .load(next.thumbnails.getHQThumbnail())
+                .into(_imageUpNextThumbnail);
+        }
+
+        val seconds = ((remainingMs + 999) / 1000).coerceAtLeast(0);
+        _textUpNextCountdown.text = context.getString(R.string.up_next_in, seconds.toInt());
+        _layoutUpNext.visibility = View.VISIBLE;
+    }
+
+    private fun hideUpNext() {
+        if (_layoutUpNext.visibility != View.GONE)
+            _layoutUpNext.visibility = View.GONE;
+    }
+
+    private fun playUpNext() {
+        val next = _upNextVideo ?: return;
+        hideUpNext();
+        checkAndRemoveWatchLater();
+        StatePlayer.instance.setAutoplayed(next.url);
+        setVideoOverview(next, true, 0, true);
     }
 
     private fun updateTracker(positionMs: Long, isPlaying: Boolean, forceUpdate: Boolean = false) {
@@ -3442,6 +3551,7 @@ class VideoDetailView : ConstraintLayout {
     }
     fun setControllerAlpha(alpha: Float) {
         _layoutResume.alpha = alpha;
+        _layoutUpNext.alpha = alpha;
         _player.videoControls.alpha = alpha;
         _cast.setButtonAlpha(alpha);
     }
@@ -3688,6 +3798,7 @@ class VideoDetailView : ConstraintLayout {
 
 
     companion object {
+        private const val UP_NEXT_COUNTDOWN_SECONDS = 10;
         private const val CAST_MAX_RELOADS = 3;
         const val TAG_ADD = "add";
         const val TAG_BACKGROUND = "background";

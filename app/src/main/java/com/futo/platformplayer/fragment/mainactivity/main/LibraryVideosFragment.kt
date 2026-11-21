@@ -83,6 +83,7 @@ class LibraryVideosFragment : MainFragment() {
     }
 
     class FragView : ContentFeedView<LibraryVideosFragment> {
+        override val autoplaySection = com.futo.platformplayer.states.AutoplaySection.LIBRARY; //Bluejay
         override val feedStyle: FeedStyle = FeedStyle.THUMBNAIL; //R.layout.list_creator;
 
         private var _toggleBar: ToggleBar? = null;

@@ -106,6 +106,7 @@ class SubscriptionsFeedFragment : MainFragment() {
 
     @SuppressLint("ViewConstructor")
     class SubscriptionsFeedView : ContentFeedView<SubscriptionsFeedFragment> {
+        override val autoplaySection = com.futo.platformplayer.states.AutoplaySection.SUBSCRIPTIONS; //Bluejay
         override val shouldShowTimeBar: Boolean get() = Settings.instance.subscriptions.progressBar
 
         var subGroup: SubscriptionGroup? = null;

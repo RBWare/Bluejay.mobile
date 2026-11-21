@@ -847,8 +847,8 @@ class StateApp {
             val wm = WorkManager.getInstance(context);
 
             if (active) {
-                if (BuildConfig.DEBUG)
-                    UIDialogs.toast(context, "Scheduling background every ${intervalMinutes} minutes");
+                //Bluejay: log instead of the debug-build toast shown on every launch
+                Logger.i(TAG, "Scheduling background every ${intervalMinutes} minutes");
 
                 val req = PeriodicWorkRequest.Builder(BackgroundWorker::class.java, intervalMinutes.toLong(), TimeUnit.MINUTES, 5, TimeUnit.MINUTES)
                     .setConstraints(Constraints.Builder().setRequiredNetworkType(NetworkType.UNMETERED).build()).build();

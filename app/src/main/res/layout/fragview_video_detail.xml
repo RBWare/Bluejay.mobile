@@ -49,6 +49,8 @@
             app:show_timeout="-1"
             android:elevation="2dp"
             app:controller_layout_id="@layout/video_player_ui_bar" />
+
+        <include layout="@layout/view_autoplay_up_next" />
     </com.futo.platformplayer.views.behavior.TouchInterceptFrameLayout>
 
     <!--Minimized Controls-->

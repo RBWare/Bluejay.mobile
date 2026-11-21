@@ -129,6 +129,8 @@
     <string name="reached_the_end_of_the_queue">Reached the end of the queue</string>
     <string name="the_queue_will_restart_after_the_video_is_finished">The queue will restart after the video is finished</string>
     <string name="up_next">Up next</string>
+    <string name="up_next_in">Up next in %1$ds</string>
+    <string name="play_now">Play now</string>
     <string name="queue">Queue</string>
     <string name="clear">Clear</string>
     <string name="last_hour">Last hour</string>
@@ -440,6 +442,9 @@
     <string name="allow_under_cutout">Allow video under cutout</string>
     <string name="allow_under_cutout_description">Allow video to go underneath the screen cutout in full screen.\nMay require restart</string>
     <string name="autoplay">Autoplay next video by default</string>
+    <string name="autoplay_sections">Autoplay by section</string>
+    <string name="autoplay_sections_description">Choose where autoplay applies, based on where the video was opened from</string>
+    <string name="autoplay_section_other_description">Channels, playlists, links and anything else</string>
     <string name="autoplay_description">Autoplay next video will be enabled by default whenever you watch a video</string>
     <string name="allow_full_screen_portrait">Allow full-screen portrait when watching horizontal videos</string>
     <string name="delete_watchlist_on_finish">Delete from WatchLater when watched</string>

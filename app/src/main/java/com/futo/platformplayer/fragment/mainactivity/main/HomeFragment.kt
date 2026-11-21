@@ -109,6 +109,7 @@ class HomeFragment : MainFragment() {
 
     @SuppressLint("ViewConstructor")
     class HomeView : ContentFeedView<HomeFragment> {
+        override val autoplaySection = com.futo.platformplayer.states.AutoplaySection.HOME; //Bluejay
         override val feedStyle: FeedStyle get() = Settings.instance.home.getHomeFeedStyle();
 
         private var _toggleBar: ToggleBar? = null;

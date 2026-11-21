@@ -20,6 +20,7 @@ import com.futo.platformplayer.fragment.mainactivity.main.SettingsFragment
 import com.futo.platformplayer.logging.Logger
 import com.futo.platformplayer.serializers.FlexibleBooleanSerializer
 import com.futo.platformplayer.serializers.OffsetDateTimeSerializer
+import com.futo.platformplayer.states.AutoplaySection
 import com.futo.platformplayer.states.StateAnnouncement
 import com.futo.platformplayer.states.StateApp
 import com.futo.platformplayer.states.StateBackup
@@ -524,8 +525,37 @@ class Settings : FragmentedStorageFileJson() {
         @FormField(R.string.allow_under_cutout, FieldForm.TOGGLE, R.string.allow_under_cutout_description, 20)
         var allowVideoToGoUnderCutout: Boolean = true;
 
+        //Bluejay: on by default like the desktop client
         @FormField(R.string.autoplay, FieldForm.TOGGLE, R.string.autoplay, 21)
-        var autoplay: Boolean = false;
+        var autoplay: Boolean = true;
+
+        //Bluejay: per-section switches for autoplay (up-next countdown), keyed by where the video was opened from
+        @FormField(R.string.autoplay_sections, "group", R.string.autoplay_sections_description, 21)
+        var autoplaySections = AutoplaySectionSettings();
+        @Serializable
+        class AutoplaySectionSettings {
+            @FormField(R.string.home, FieldForm.TOGGLE, -1, 0)
+            var home: Boolean = true;
+            @FormField(R.string.for_you, FieldForm.TOGGLE, -1, 1)
+            var forYou: Boolean = true;
+            @FormField(R.string.subscriptions, FieldForm.TOGGLE, -1, 2)
+            var subscriptions: Boolean = true;
+            @FormField(R.string.search, FieldForm.TOGGLE, -1, 3)
+            var search: Boolean = true;
+            @FormField(R.string.library, FieldForm.TOGGLE, -1, 4)
+            var library: Boolean = true;
+            @FormField(R.string.other, FieldForm.TOGGLE, R.string.autoplay_section_other_description, 5)
+            var other: Boolean = true;
+
+            fun isEnabled(section: AutoplaySection): Boolean = when (section) {
+                AutoplaySection.HOME -> home
+                AutoplaySection.FOR_YOU -> forYou
+                AutoplaySection.SUBSCRIPTIONS -> subscriptions
+                AutoplaySection.SEARCH -> search
+                AutoplaySection.LIBRARY -> library
+                AutoplaySection.OTHER -> other
+            }
+        }
 
         @AdvancedField
         @FormField(R.string.delete_watchlist_on_finish, FieldForm.TOGGLE, R.string.delete_watchlist_on_finish_description, 22)

@@ -17,6 +17,7 @@ import androidx.media3.exoplayer.upstream.DefaultAllocator
 import com.futo.platformplayer.R
 import com.futo.platformplayer.Settings
 import com.futo.platformplayer.UIDialogs
+import com.futo.platformplayer.api.media.models.contents.IPlatformContent
 import com.futo.platformplayer.api.media.models.video.IPlatformVideo
 import com.futo.platformplayer.api.media.models.video.IPlatformVideoDetails
 import com.futo.platformplayer.api.media.models.video.PlatformVideoPlaceholder
@@ -84,6 +85,23 @@ class StatePlayer {
     }
 
     val autoplayChanged = Event1<Boolean>()
+
+    //Bluejay: the feed (and its app section) a video was opened from, so autoplay can continue with the next video
+    //of that feed and respect the per-section autoplay settings. The feed list belongs to a feed view and is weakly
+    //held; it only applies while the playing video is part of it, otherwise the video counts as AutoplaySection.OTHER.
+    private var _autoplaySource: java.lang.ref.WeakReference<List<IPlatformContent>>? = null
+    private var _autoplaySection: AutoplaySection = AutoplaySection.OTHER
+    fun setAutoplaySource(feed: List<IPlatformContent>?, section: AutoplaySection) {
+        _autoplaySource = feed?.let { java.lang.ref.WeakReference(it) }
+        _autoplaySection = section
+    }
+    /** The section [url] was opened from and the feed snapshot (null when it was not opened from a feed). */
+    fun getAutoplaySource(url: String): Pair<AutoplaySection, List<IPlatformContent>?> {
+        val feed = _autoplaySource?.get()?.toList()
+        if (feed == null || feed.none { it.url == url })
+            return Pair(AutoplaySection.OTHER, null)
+        return Pair(_autoplaySection, feed)
+    }
     var loopVideo : Boolean = false;
 
     val isPlaying: Boolean get() = _exoplayer?.player?.playWhenReady ?: false;

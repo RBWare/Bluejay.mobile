@@ -82,6 +82,7 @@ class ContentSearchResultsFragment : MainFragment() {
 
     @SuppressLint("ViewConstructor")
     class ContentSearchResultsView : ContentFeedView<ContentSearchResultsFragment> {
+        override val autoplaySection = com.futo.platformplayer.states.AutoplaySection.SEARCH; //Bluejay
         override val feedStyle: FeedStyle get() = Settings.instance.search.getSearchFeedStyle();
 
         private var _query: String? = null;
